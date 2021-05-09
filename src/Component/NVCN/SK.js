@@ -129,11 +129,11 @@ export default function SK() {
               </tr>
               <tr>
                 <th>Từ ngày </th>                                       
-                <td><input type="datetime-local" id="Ngaynhap" name="tungay" placeholder={State.AllNVInfo[0].tungay} onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input type="datetime-local" id="Ngaynhap" name="tungay" placeholder={State.AllSK[0].tungay} onChange={(event)=>Handler_Onchange(event)}/></td>
               </tr>
               <tr>
                 <th>Đến ngày </th>                                       
-                <td><input type="datetime-local" id="Ngaynhap" name="denngay" placeholder={State.AllNVInfo[0].dengay} onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input type="datetime-local" id="Ngaynhap" name="denngay" placeholder={State.AllSK[0].dengay} onChange={(event)=>Handler_Onchange(event)}/></td>
               </tr>
             </tbody></table>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Sự Kiện </button>

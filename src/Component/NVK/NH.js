@@ -53,14 +53,14 @@ const ListCT = props => {
             event.preventDefault();
             axios.delete(`http://localhost:8080/SYS/DeleteCTPhieuNhap/${item.machitietphieunhap}`).then((res,err)=>{
             let temp = async () => {
-                alert("Xóa thông tin PTCT thành công");
+                alert("Xóa thông tin PNCT thành công");
                 let res = await axios.get(`http://localhost:8080/SYS/GetAllCTPhieuNhap/${item.maphieunhap}`)
                 if(res.data.data!==undefined){
                 SetState({type:"AllCTPN",payload:res.data.data})
                  SetState({type:"QLPNSTT",payload:-1});
                 }
             }
-            res.data.access === 1 ? temp() : alert(`Xóa thông tin PTCT thất bại lỗi ${err}: ${res.data.error}`)
+            res.data.access === 1 ? temp() : alert(`Xóa thông tin PNCT thất bại lỗi ${err}: ${res.data.error}`)
         })
         }
         return <tr key={item.machitietphieunhap}>
@@ -186,7 +186,7 @@ export default function NH() {
        // ------------------------------------------------------------------------
 
         const Handler_CTOnchange = (event) => {
-            State.QLPNSTT!== -3 ? SetPNCTInfo({...PNCTInfo,machitietphieunhap:State.AllCTPN[0].machitietphieunhap,maphieunhap:State.AllCTPN[0].maphieunhap,[event.target.name]:event.target.value}) : 
+            State.QLPNSTT!== -3 ? SetPNCTInfo({...PNCTInfo,machitietphieunhap:State.AllCTPN[0]?.machitietphieunhap,maphieunhap:State.AllCTPN[0]?.maphieunhap,[event.target.name]:event.target.value}) : 
             SetPNCTInfo({...PNCTInfo,[event.target.name]:event.target.value})
         }
         const Handler_SuaCTOnclick = (event) => {
@@ -194,7 +194,7 @@ export default function NH() {
              axios.put(`http://localhost:8080/SYS/UpdateCTPhieuNhap`,PNCTInfo).then((res,err)=>{
             let temp = async () => {
                 alert("Sửa thông tin phiếu nhập thành công");
-                let res = await axios.get(`http://localhost:8080/SYS/GetAllCTPhieuNhap/${State.AllCTPN[0].maphieunhap}`)
+                let res = await axios.get(`http://localhost:8080/SYS/GetAllCTPhieuNhap/${State.AllCTPN[0]?.maphieunhap}`)
                 if(res.data.data!==undefined){
                 SetState({type:"AllCTPN",payload:res.data.data})
                 SetState({type:"QLPNSTT",payload:-1});
@@ -210,7 +210,7 @@ export default function NH() {
                 axios.post(`http://localhost:8080/SYS/InsertCTPhieuNhap`,PNCTInfo).then((res,err)=>{
                     let temp2 = async () => {
                         alert("Thêm thông tin phiếu nhập thành công");
-                        let res = await axios.get(`http://localhost:8080/SYS/GetAllCTPhieuNhap/${State.AllCTPN[0].maphieunhap}`)
+                        let res = await axios.get(`http://localhost:8080/SYS/GetAllCTPhieuNhap/${State.AllCTPN[0]?.maphieunhap}`)
                     if(res.data.data!==undefined){
                         SetState({type:"AllCTPN",payload:res.data.data})
                         SetState({type:"QLPNSTT",payload:-1});
@@ -250,7 +250,12 @@ export default function NH() {
         })()
         if(State.QLPNSTT===2) SetPNInfo({});
     },[State.QLPNSTT])
-
+  //   useEffect(()=>{
+      
+  //       if (State.AllCTPN[0]?.maphieunhap=== undefined) SetState({type:"AllCTPN",payload:[{maphieunhap:"null"}]})
+      
+      
+  // })
     switch(State.QLPNSTT){
         case -3: return (
             <div className="container-fluid mt--10">
@@ -259,10 +264,7 @@ export default function NH() {
             <form> 
               <table className="table">
                 <tbody>
-                  {/* <tr>
-                    <th>Mã Phiếu Nhập </th>
-                    <td><input className="form-control"  type="text" name="maphieunhap" placeholder={State.AllCTPN[0].maphieunhap} id="diem" onChange={(event)=>Handler_CTOnchange(event)} disabled/> </td>
-                  </tr>    */}
+                
                   <tr>
                     <th>Mã Phiếu Nhập</th>
                     <td>

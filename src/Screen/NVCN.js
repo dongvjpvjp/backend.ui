@@ -83,11 +83,11 @@ export default function NVCN() {
                   <li className="nav-item">
                     <a className="nav-link" href="./doanhthu/doanhthu.html" onClick={(event)=>Handler_OnClick(event,4)}>
                       <i className="ni ni-bullet-list-67 text-default" />
-                      <span className="nav-link-text">Quản Lý Doanh Thu Chi Nhánh</span>
+                      <span className="nav-link-text">Điểm Danh</span>
                     </a>
                   </li>
                   <div className="ml-3">
-                    <h3> Quản Lý Nhân Viên</h3>
+                    <h3> Quản Lý Thông Tin</h3>
                   </div>
                   <li className="nav-item">
                     <a className="nav-link" href="./Sukien/Sukien.html" onClick={(event)=>Handler_OnClick(event,5)}>
@@ -99,6 +99,12 @@ export default function NVCN() {
                     <a className="nav-link" href="./Hoadon/hoadon.html" onClick={(event)=>Handler_OnClick(event,6)}>
                       <i className="ni ni-send text-dark" />
                       <span className="nav-link-text">Hóa đơn</span>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="./Hoadon/hoadon.html" onClick={(event)=>Handler_OnClick(event,7)}>
+                      <i className="ni ni-send text-dark" />
+                      <span className="nav-link-text">Phiếu Trả Hàng</span>
                     </a>
                   </li>
                   

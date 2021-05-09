@@ -28,14 +28,42 @@ function App() {
     AllPN:[],
     QLPNSTT:0,
     AllCTPN:[],
+    AllPX:[],
+    QLPXSTT:0,
+    AllCTPX:[],
     //HH/
+    AllSP:[],
+    QLSPSTT:0,
+    AllCTSP:[],
+    //San pham
     AllHD:[],
     AllCTHD:[],
     QLCTHDSTT:0,
     QLHDSTT:0,
+
     //Hoa don    
+    AllKH:[],
+    QLKHSTT:0,
+    // Khach Hang  
+    AllCN:[],
+    QLCNSTT:0,
+    //Chi Nhanh
+    AllKHO:[],
+    QLKHOSTT:0,
+    //KHo
+    AllNCC:[],
+    QLNCCSTT:0,
+    //NCC
+
+    AllPTH:[],
+    AllCTPTH:[],
+    QLCTPTHSTT:0,
+    QLPTHSTT:0,
+    //Phieu tra hang
     NVCNSTT:0,
     NVKSTT:0,
+    NVBHSTT:0,
+    NVTSTT:0,
     // STT RENDER
   }
   const DisPatch = (state,action) => {
@@ -57,6 +85,17 @@ function App() {
           ...state,NVKSTT:action.payload
         }
       }
+      case "NVBHSTT": {
+        return {
+          ...state,NVBHSTT:action.payload
+        }
+      }
+      case "NVTSTT": {
+        return {
+          ...state,NVTSTT:action.payload
+        }
+      }
+
      // STT RENDER
       case "NVInfo": {
         return {
@@ -74,6 +113,18 @@ function App() {
         }
       }
        //NV INFO
+
+      case "AllKH": {
+              return {
+                ...state,AllKH:action.payload
+              }
+            }
+      case "QLKHSTT": {
+              return {
+                ...state,QLKHSTT:action.payload
+              }
+            }
+       //KH INFO
        case "AllPCT": {
         return {
           ...state,AllPCT:action.payload
@@ -106,6 +157,39 @@ function App() {
         }
       }
       // su kien
+       case "AllCN": {
+        return {
+          ...state,AllCN:action.payload
+        }
+      }
+      case "QLCNSTT": {
+        return {
+          ...state,QLCNSTT:action.payload
+        }
+      }
+      // Chi nhanh
+       case "AllKHO": {
+        return {
+          ...state,AllKHO:action.payload
+        }
+      }
+      case "QLKHOSTT": {
+        return {
+          ...state,QLKHOSTT:action.payload
+        }
+      }
+      // kho
+       case "AllNCC": {
+        return {
+          ...state,AllNCC:action.payload
+        }
+      }
+      case "QLNCCSTT": {
+        return {
+          ...state,QLNCCSTT:action.payload
+        }
+      }
+      // kho
        case "AllHD": {
         return {
           ...state,AllHD:action.payload
@@ -127,12 +211,27 @@ function App() {
         }
       }
       // Hoa don
-      
-       case "QLPNSTT":{
+      case "AllPTH": {
         return {
-          ...state,QLPNSTT:action.payload
+          ...state,AllPTH:action.payload
         }
       }
+       case "AllCTPTH": {
+        return {
+          ...state,AllCTPTH:action.payload
+        }
+      }
+      case "QLCTPTHSTT": {
+        return {
+          ...state,QLCTPTHSTT:action.payload
+        }
+      }
+      case "QLPTHSTT": {
+        return {
+          ...state,QLPTHSTT:action.payload
+        }
+      }
+      //Phieu tra hang
        case "QLHHSTT":{
         return {
           ...state,QLHHSTT:action.payload
@@ -141,6 +240,11 @@ function App() {
        case "AllHH":{
         return {
           ...state,AllHH:action.payload
+        }
+      }
+      case "QLPNSTT":{
+        return {
+          ...state,QLPNSTT:action.payload
         }
       }
        case "AllPN":{
@@ -153,7 +257,40 @@ function App() {
           ...state,AllCTPN:action.payload
         }
       }
+       case "AllPX":{
+        return {
+          ...state,AllPX:action.payload
+        }
+      }
+       case "AllCTPX":{
+        return {
+          ...state,AllCTPX:action.payload
+        }
+      }
+            
+      case "QLPXSTT":{
+        return {
+          ...state,QLPXSTT:action.payload
+        }
+      }
       // Hang hoa
+      case "AllSP":{
+        return {
+          ...state,AllSP:action.payload
+        }
+      }
+       case "AllCTSP":{
+        return {
+          ...state,AllCTSP:action.payload
+        }
+      }
+            
+      case "QLSPSTT":{
+        return {
+          ...state,QLSPSTT:action.payload
+        }
+      }
+      //SAn pham
       default: console.log("LOI DISPATCH");
     }
   }

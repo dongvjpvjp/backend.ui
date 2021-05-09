@@ -206,13 +206,13 @@ export default function QLNV() {
                     <option value={1}>
                       Nhân viên bán hàng
                     </option>
-                    {/* <option value={2}>
+                    <option value={2}>
                       Nhân viên kho
                     </option>
                     <option value={3}>
                       Nhân viên chi nhánh
                     </option>
-                    <option value={4}>
+                    {/* <option value={4}>
                       Nhân viên tổng
                     </option> */}
                   </select>
