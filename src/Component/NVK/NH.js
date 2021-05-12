@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
-
+import Handler from '../../Utility/Handler'
 
 const ListPN = (props) => {
     const [State, SetState] = useContext(Context);
@@ -63,13 +63,13 @@ const ListCT = props => {
             res.data.access === 1 ? temp() : alert(`Xóa thông tin PNCT thất bại lỗi ${err}: ${res.data.error}`)
         })
         }
-        return <tr key={item.machitietphieunhap}>
+        return <tr key={item?.machitietphieunhap}>
         <th scope="row">{index}</th>
-        <td>{item.machitietphieunhap}</td>
-        <td>{item.mahh}</td>
-        <td>{item.soluong}</td>
-        <td>{item.dongia}</td>
-        <td>{item.mancc}</td>
+        <td>{item?.machitietphieunhap}</td>
+        <td>{item?.mahh}</td>
+        <td>{item?.soluong}</td>
+        <td>{item?.dongia}</td>
+        <td>{item?.mancc}</td>
         <td><a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
           <a href="xoa_nv.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XoaOnClick(event)}> Xóa </a> </td>
         </tr>
@@ -114,14 +114,14 @@ const ListNV = (props) => {
         }
 
       
-        return <tr key={item.maphieunhap}>
+        return <tr key={item?.maphieunhap}>
         <th scope="row">{index}</th>
-        <td>{item.maphieunhap}</td>
-        <td>{item.tenphieunhap}</td>
-        <td>{item.manv}</td>
-        <td>{item.makho}</td>
-        <td>{item.ngaynhap}</td>
-        <td>{item.tongtien}</td>
+        <td>{item?.maphieunhap}</td>
+        <td>{item?.tenphieunhap}</td>
+        <td>{item?.manv}</td>
+        <td>{item?.makho}</td>
+        <td>{item?.ngaynhap}</td>
+        <td>{item?.tongtien}</td>
     
         <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XemOnclick(event)}> Xem </a>
@@ -296,11 +296,11 @@ export default function NH() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia" id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -346,11 +346,11 @@ export default function NH() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTPN[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTPN[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)} /> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTPN[0].dongia} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTPN[0].dongia} id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)} /> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -402,7 +402,7 @@ export default function NH() {
               </tr>   
               <tr>
                 <th>Tên Phiếu Nhập </th>
-                <td><input className="form-control" type="text" name="tenphieunhap" placeholder={State.AllPN[0].tenphieunhap} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="tenphieunhap" placeholder={State.AllPN[0].tenphieunhap} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>   
               <tr>
                 <th>Mã NV </th>
@@ -448,11 +448,11 @@ export default function NH() {
 
               <tr>
                 <th>Mã Phiếu Nhập </th>
-                <td><input className="form-control" type="text" name="maphieunhap" id="diem" onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="maphieunhap" id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>   
               <tr>
                 <th>Tên Phiếu Nhập </th>
-                <td><input className="form-control" type="text" name="tenphieunhap" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="tenphieunhap" id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>   
               <tr>
                 <th>Mã NV </th>

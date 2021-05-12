@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler';
 
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
@@ -117,15 +118,15 @@ export default function SK() {
               </tr>   
               <tr>
                 <th>Tên Sự Kiện</th>
-                <td><input className="form-control" type="text" name="tensukien" placeholder={State.AllSK[0].tensukien} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="tensukien" placeholder={State.AllSK[0].tensukien} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th>Nội dung</th>
-                <td><input className="form-control" type="text" name="noidung" placeholder={State.AllSK[0].noidung} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="noidung" placeholder={State.AllSK[0].noidung} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th> Chiết khấu </th>
-                <td><input className="form-control" type="text" name="chietkhau" placeholder={State.AllSK[0].chietkhau} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="chietkhau" placeholder={State.AllSK[0].chietkhau} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
               </tr>
               <tr>
                 <th>Từ ngày </th>                                       
@@ -150,20 +151,20 @@ export default function SK() {
               <tr>
               </tr><tr>
                 <th>Mã Sự Kiện </th>
-                <td><input className="form-control" type="text" name="masukien" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="masukien" onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
               </tr>
               <tr>
                 <th>Tên Sự Kiện</th>
-                <td><input className="form-control" type="text" name="tensukien" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="tensukien" onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
               </tr>
               
               <tr>
                 <th>Nội Dung</th>
-                <td><input className="form-control" type="text" name="noidung" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="noidung" onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
               </tr>
               <tr>
                 <th>Chiết khấu</th>
-                <td><input className="form-control" type="text" name="chietkhau" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="chietkhau" onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
               </tr>
             
               <tr>

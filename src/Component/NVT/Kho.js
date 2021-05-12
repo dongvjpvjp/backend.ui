@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
@@ -116,11 +117,11 @@ export default function Kho() {
               </tr>   
               <tr>
                 <th>Tên Kho</th>
-                <td><input className="form-control" type="text" name="tenkho" placeholder={State.AllKHO[0].tenkho} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="tenkho" placeholder={State.AllKHO[0].tenkho} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th>Mô tả</th>
-                <td><input className="form-control" type="text-area" name="mota" placeholder={State.AllKHO[0].mota} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text-area" name="mota" placeholder={State.AllKHO[0].mota} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
            
              
@@ -139,16 +140,16 @@ export default function Kho() {
               <tr>
               </tr><tr>
                 <th>Mã KhO </th>
-                <td><input className="form-control" type="text" name="makho" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="makho" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th>Tên Kho</th>
-                <td><input className="form-control" type="text" name="tenkho" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="tenkho" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               
               <tr>
                 <th>Mô tả</th>
-                <td><input className="form-control" type="text-area" name="mota" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text-area" name="mota" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>
              
             </tbody></table>

@@ -69,7 +69,7 @@ export default function HD() {
         case -1: return (
             <div className="container-fluid mt--10">
             {/* table */}
-            <h2> Thông tin chi tiết hóa đơn {State.AllCTHD[0].mahoadon} </h2>
+            <h2> Thông tin chi tiết hóa đơn {State.AllCTHD[0]?.mahoadon} </h2>
             <form action method="get">
               <table className="table_nhapkho">
                 <thead>

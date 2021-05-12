@@ -8,14 +8,14 @@ const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item,index)=>{
 
-        return <tr key={item.masukien}>
+        return <tr key={item?.masukien}>
         <th scope="row">{index}</th>
-        <td>{item.masukien}</td>
-        <td>{item.tensukien}</td>
-        <td>{item.chietkhau}</td>
-        <td>{item.noidung}</td>
-        <td>{item.tungay}</td>
-        <td>{item.denngay}</td>
+        <td>{item?.masukien}</td>
+        <td>{item?.tensukien}</td>
+        <td>{item?.chietkhau}</td>
+        <td>{item?.noidung}</td>
+        <td>{item?.tungay}</td>
+        <td>{item?.denngay}</td>
         
       </tr>
     })

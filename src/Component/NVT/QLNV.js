@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
@@ -63,6 +64,7 @@ export default function QLNV() {
     const [NVInfo,SetNVInfo] = useState({});
     const [CNInfo,SetCNInfo] = useState([]);
     const Handler_Onchange = (event)=>{
+      State.QLNVSTT ===1 ?  SetNVInfo({...NVInfo,machinhanh:State.AllNVInfo[0].machinhanh,[event.target.name]:event.target.value}) :
         SetNVInfo({...NVInfo,[event.target.name]:event.target.value})
     }
     const Handler_SuaOnclick = (event)=>{
@@ -127,7 +129,7 @@ export default function QLNV() {
             <tbody><tr>
                 <th>Tên Chi nhánh</th>
                 <td>
-                    <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].machinhanh}>
+                    <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].machinhanh} >
                     <ListCN data={CNInfo}/>
                   </select>
                 </td>
@@ -139,11 +141,11 @@ export default function QLNV() {
               </tr>   
               <tr>
                 <th>Tên nhân viên</th>
-                <td><input className="form-control" type="text" name="tennv" placeholder={State.AllNVInfo[0].tennv} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="tennv" placeholder={State.AllNVInfo[0].tennv} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th>Mật khẩu</th>
-                <td><input className="form-control" type="text" name="matkhau" placeholder={State.AllNVInfo[0].matkhau} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="matkhau" placeholder={State.AllNVInfo[0].matkhau} onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
                 <th>Ngày sinh </th>                                       
@@ -151,23 +153,23 @@ export default function QLNV() {
               </tr>
               <tr>
                 <th>CCCD </th>
-                <td><input className="form-control" type="text" name="cmnd" placeholder={State.AllNVInfo[0].cmnd} id="diem" onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control" type="text" name="cmnd" placeholder={State.AllNVInfo[0].cmnd} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
               </tr>
               <tr>
                 <th>SĐT </th>
-                <td><input className="form-control" type="text" name="sdt" placeholder={State.AllNVInfo[0].sdt} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="sdt" placeholder={State.AllNVInfo[0].sdt} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)} /></td>
               </tr>
               <tr>
                 <th>Địa chỉ </th>
-                <td><input className="form-control" type="text" name="diachi" placeholder={State.AllNVInfo[0].diachi} id="diem" onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control" type="text" name="diachi" placeholder={State.AllNVInfo[0].diachi} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
               </tr>
               <tr>
                 <th>Lương cơ bản</th>
-                <td><input className="form-control" type="text" name="luongcoban" placeholder={State.AllNVInfo[0].luongcoban} onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="luongcoban" placeholder={State.AllNVInfo[0].luongcoban} onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Number(event)} /> </td>
               </tr>
               <tr>
                 <th>Hệ số lương</th>
-                <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].hesoluong} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].hesoluong} id="diem" onKeyPress={(event)=>Handler.Number(event)}/> </td>
               </tr>
             </tbody></table>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Nhân viên </button>
@@ -192,11 +194,11 @@ export default function QLNV() {
               <tr>
               </tr><tr>
                 <th>Mã Nhân viên </th>
-                <td><input className="form-control" type="text" name="manv" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="manv" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>
               <tr>
                 <th>Tên nhân viên</th>
-                <td><input className="form-control" type="text" name="tennv" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="tennv" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>
               <tr>
                 <th>Chức Vụ</th>
@@ -220,15 +222,15 @@ export default function QLNV() {
               </tr>
               <tr>
                 <th>Lương cơ bản</th>
-                <td><input className="form-control" type="text" name="luongcoban" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="luongcoban" onChange={(event)=>Handler_Onchange(event)} id="diem"  onKeyPress={(event)=>Handler.Number(event)}/> </td>
               </tr>
               <tr>
                 <th>Hệ số lương</th>
-                <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Number(event)} /> </td>
               </tr>
               <tr>
                 <th>Mật khẩu</th>
-                <td><input className="form-control" type="text" name="matkhau" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+                <td><input className="form-control" type="text" name="matkhau" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>
               <tr>
                 <th>Ngày sinh </th>                                       
@@ -236,19 +238,19 @@ export default function QLNV() {
               </tr>
               <tr>
                 <th>CCCD </th>
-                <td><input className="form-control" type="text" name="cmnd" onChange={(event)=>Handler_Onchange(event)} id="diem" /></td>
+                <td><input className="form-control" type="text" name="cmnd" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Number(event)}/></td>
               </tr>
               <tr>
                 <th>SĐT </th>
-                <td><input className="form-control" type="text" name="sdt" onChange={(event)=>Handler_Onchange(event)} id="diem" /></td>
+                <td><input className="form-control" type="text" name="sdt" onChange={(event)=>Handler_Onchange(event)} id="diem"  onKeyPress={(event)=>Handler.Number(event)}/></td>
               </tr>
               <tr>
                 <th>Địa chỉ </th>
-                <td><input className="form-control" type="text" name="diachi" onChange={(event)=>Handler_Onchange(event)} id="diem" /></td>
+                <td><input className="form-control" type="text" name="diachi" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)}/></td>
               </tr>
               <tr>
                 <th>Email </th>
-                <td><input className="form-control" type="text" name="email" onChange={(event)=>Handler_Onchange(event)} id="diem" /></td>
+                <td><input className="form-control" type="text" name="email" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Email(event)}/></td>
               </tr>
               <tr>
                 <th>Ảnh NV </th>

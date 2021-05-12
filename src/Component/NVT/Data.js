@@ -9,6 +9,7 @@ import NCC from './NCC'
 import QLNV from './QLNV'
 import PTH from './PTH'
 import Kho from './Kho'
+import DT from './DT'
 export default function Data() {
     const [State, SetState] = useContext(Context);
 
@@ -20,6 +21,6 @@ export default function Data() {
      case 5: return <SP/>
      case 6: return <HD/>
      case 7: return <PTH/>
-      default: return <div>Day la trang doanh thu</div>
+      default: return <DT/>
   }
 }

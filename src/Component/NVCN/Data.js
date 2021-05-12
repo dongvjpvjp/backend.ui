@@ -8,6 +8,7 @@ import QLV from './QLV'
 import SK from './SK'
 import HD from './HD'
 import PTH from './PTH'
+import DT from './DT'
 export default function Data() {
     const [State, SetState] = useContext(Context);
 
@@ -17,10 +18,10 @@ export default function Data() {
       case 1: return <QLNV/>
       case 2: return <QLCT/>
       case 3: return <QLV/>
-      case 4: return <div>Đây là trang điểm danh nhân viên</div>
+      case 4: return <div>Đang trong giai đoạn phát triển</div>
       case 5: return <SK/>
       case 6: return <HD/>
       case 7: return <PTH/>
-      default: return <div>Đây là trang xem doanh thu</div>  
+      default: return <DT/>  
   }
 }

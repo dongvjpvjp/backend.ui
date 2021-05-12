@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
@@ -30,14 +31,14 @@ const ListNV = (props) => {
             
 
         }
-        return <tr key={item.makh}>
+        return <tr key={item?.makh}>
         <th scope="row">{index}</th>
-        <td>{item.makh}</td>
-        <td>{item.tenkh}</td>
-        <td>{item.matkhau}</td>
-        <td>{item.email}</td>
-        <td>{item.diachi}</td>
-        <td>{item.sdt}</td>
+        <td>{item?.makh}</td>
+        <td>{item?.tenkh}</td>
+        <td>{item?.matkhau}</td>
+        <td>{item?.email}</td>
+        <td>{item?.diachi}</td>
+        <td>{item?.sdt}</td>
         
         <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
@@ -119,23 +120,23 @@ export default function KH() {
               </tr>   
               <tr>
                 <th>Tên Khách Hàng</th>
-                <td><input className="form-control" type="text" name="tenkh" placeholder={State.AllKH[0].tenkh} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="tenkh" placeholder={State.AllKH[0].tenkh} onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)}/> </td>
               </tr>
               <tr>
                 <th>Mật Khẩu</th>
-                <td><input className="form-control" type="text" name="matkhau" placeholder={State.AllKH[0].matkhau} onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" onKeyPress={(event)=>Handler.Char(event)} name="matkhau" placeholder={State.AllKH[0].matkhau} onChange={(event)=>Handler_Onchange(event)}/> </td>
               </tr>
               <tr>
                 <th> Email </th>
-                <td><input className="form-control" type="text" name="email" placeholder={State.AllKH[0].email} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="email" placeholder={State.AllKH[0].email} onKeyPress={(event)=>Handler.Email(event)} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
               <tr>
                 <th>Địa chỉ </th>                                       
-                <td><input className="form-control" type="text" id="Ngaynhap" name="diachi" placeholder={State.AllKH[0].diachi} onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" id="Ngaynhap" name="diachi" placeholder={State.AllKH[0].diachi} onChange={(event)=>Handler_Onchange(event)}/></td>
               </tr>
               <tr>
                 <th>SĐT </th>                                       
-                <td><input className="form-control" type="text" id="Ngaynhap" name="sdt" placeholder={State.AllKH[0].dengay} onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control" type="text" onKeyPress={(event)=>Handler.Number(event)} id="Ngaynhap" name="sdt" placeholder={State.AllKH[0].dengay} onChange={(event)=>Handler_Onchange(event)}/></td>
               </tr>
               <tr>
                 <th>Ảnh KH</th>                                       
@@ -143,7 +144,7 @@ export default function KH() {
               </tr>
 
             </tbody></table>
-          <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Sự Kiện </button>
+          <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật KH </button>
         </form>
       </div>)
         // SUA INFO NV
@@ -157,27 +158,27 @@ export default function KH() {
               <tr>
               </tr><tr>
                 <th>Mã Khách Hàng </th>
-                <td><input className="form-control" type="text" name="makh"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="makh"  id="diem" onChange={(event)=>Handler_Onchange(event)}  onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>   
               <tr>
                 <th>Tên Khách Hàng</th>
-                <td><input className="form-control" type="text" name="tenkh"  onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="tenkh"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /></td>
               </tr>
               <tr>
                 <th>Mật Khẩu</th>
-                <td><input className="form-control" type="text" name="matkhau"  onChange={(event)=>Handler_Onchange(event)}/> </td>
+                <td><input className="form-control" type="text" name="matkhau"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/>  </td>
               </tr>
               <tr>
                 <th> Email </th>
-                <td><input className="form-control" type="text" name="email"  id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="email"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Email(event)} /></td>
               </tr>
               <tr>
                 <th>Địa chỉ </th>                                       
-                <td><input className="form-control"type="text" id="Ngaynhap" name="diachi"  onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control"type="text" id="Ngaynhap" name="diachi"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
               </tr>
               <tr>
                 <th>SĐT </th>                                       
-                <td><input className="form-control" type="text" id="Ngaynhap" name="sdt"  onChange={(event)=>Handler_Onchange(event)}/></td>
+                <td><input className="form-control" type="text" id="Ngaynhap" name="sdt"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
               </tr>
               <tr>
                 <th>Ảnh KH</th>                                       

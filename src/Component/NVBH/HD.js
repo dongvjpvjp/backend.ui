@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
-
+import Handler from '../../Utility/Handler'
 
 const ListHD = (props) => {
     const [State, SetState] = useContext(Context);
@@ -64,13 +64,13 @@ const ListCT = props => {
             res.data.access === 1 ? temp() : alert(`Xóa thông tin CTHD thất bại lỗi ${err}: ${res.data.error}`)
         })
         }
-        return <tr key={item.machitiethoadon}>
+        return <tr key={item?.machitiethoadon}>
         <th scope="row">{index}</th>
-        <td>{item.machitiethoadon}</td>
-        <td>{item.masp}</td>
-        <td>{item.tensp}</td>
-        <td>{item.soluong}</td>
-        <td>{item.dongia}</td>
+        <td>{item?.machitiethoadon}</td>
+        <td>{item?.masp}</td>
+        <td>{item?.tensp}</td>
+        <td>{item?.soluong}</td>
+        <td>{item?.dongia}</td>
         <td><a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
           <a href="xoa_nv.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XoaOnClick(event)}> Xóa </a> </td>
         </tr>
@@ -115,19 +115,19 @@ const ListNV = (props) => {
         }
 
        
-        return <tr key={item.mahoadon}>
+        return <tr key={item?.mahoadon}>
         <th scope="row">{index}</th>
-        <td>{item.mahoadon}</td>
-        <td>{item.tenhoadon}</td>
-        <td>{item.makh}</td>
-        <td>{item.machinhanh}</td>
-        <td>{item.masukien}</td>
-        <td>{item.sdt}</td> 
-        <td>{item.diachi}</td>
-        <td>{item.ghichu}</td>
-        <td>{item.ngaytao}</td>
-        <td>{item.trangthai}</td>
-        <td>{item.tongtien}</td>
+        <td>{item?.mahoadon}</td>
+        <td>{item?.tenhoadon}</td>
+        <td>{item?.makh}</td>
+        <td>{item?.machinhanh}</td>
+        <td>{item?.masukien}</td>
+        <td>{item?.sdt}</td> 
+        <td>{item?.diachi}</td>
+        <td>{item?.ghichu}</td>
+        <td>{item?.ngaytao}</td>
+        <td>{item?.trangthai}</td>
+        <td>{item?.tongtien}</td>
     
         <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XemOnclick(event)}> Xem </a>
@@ -288,11 +288,11 @@ export default function HD() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong" onKeyPress={(event)=>Handler.Number(event)} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia" onKeyPress={(event)=>Handler.Number(event)} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -329,11 +329,11 @@ export default function HD() {
                
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTHD[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTHD[0].soluong} onKeyPress={(event)=>Handler.Number(event)} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTHD[0].dongia} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTHD[0].dongia} id="diem" onKeyPress={(event)=>Handler.Number(event)} onChange={(event)=>Handler_CTOnchange(event)} /> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -385,12 +385,12 @@ export default function HD() {
               </tr>   
               <tr>
                 <th>Tên Hóa Đơn </th>
-                <td><input className="form-control" type="text" name="tenhoadon" placeholder={State.AllHD[0].tenhoadon} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="tenhoadon" placeholder={State.AllHD[0].tenhoadon} id="diem" onKeyPress={(event)=>Handler.Char(event)} onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
               <tr>
                 <th>Mã KH </th>
                 <td>
-                <select style={{width: '75%'}} name="makh" placeholder={State.AllHD[0].makh} onChange={(event)=>Handler_Onchange(event)}>
+                <select style={{width: '75%'}} name="makh" disabled placeholder={State.AllHD[0].makh} onChange={(event)=>Handler_Onchange(event)}>
                   <option/>
                   <ListKH data={KHInfo}/>
                   </select>
@@ -416,15 +416,15 @@ export default function HD() {
               </tr>     
             <tr>
                 <th>SDT </th>
-                <td><input className="form-control" type="text" name="sdt" placeholder={State.AllHD[0].sdt} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="sdt" placeholder={State.AllHD[0].sdt} id="diem" onKeyPress={(event)=>Handler.Number(event)} onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             <tr>
                 <th>Địa chỉ </th>
-                <td><input className="form-control" type="text" name="diachi" placeholder={State.AllHD[0].diachi} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="diachi" placeholder={State.AllHD[0].diachi} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             <tr>
                 <th>Ghi chú </th>
-                <td><input className="form-control" type="text" name="ghichu" placeholder={State.AllHD[0].ghichu} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" onKeyPress={(event)=>Handler.Char(event)} name="ghichu" placeholder={State.AllHD[0].ghichu} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             
               <tr>
@@ -433,7 +433,7 @@ export default function HD() {
               </tr>
               <tr>
                 <th>Trạng thái </th>
-                <td><input className="form-control" type="text" name="trangthai" placeholder={State.AllHD[0].trangthai} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" onKeyPress={(event)=>Handler.Char(event)} name="trangthai" placeholder={State.AllHD[0].trangthai} id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
               <tr>
                 <th> Tổng tiền </th>
@@ -455,11 +455,11 @@ export default function HD() {
 
               <tr>
                 <th>Mã Hóa Đơn </th>
-                <td><input className="form-control" type="text" name="mahoadon"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="mahoadon"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>   
               <tr>
                 <th>Tên Hóa Đơn </th>
-                <td><input className="form-control" type="text" name="tenhoadon"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" onKeyPress={(event)=>Handler.Char(event)} name="tenhoadon"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
               <tr>
                 <th>Mã KH </th>
@@ -490,15 +490,15 @@ export default function HD() {
               </tr>     
             <tr>
                 <th>SDT </th>
-                <td><input className="form-control" type="text" name="sdt"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control"  type="text" name="sdt"  id="diem" onKeyPress={(event)=>Handler.Number(event)} onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             <tr>
                 <th>Địa chỉ </th>
-                <td><input className="form-control" type="text" name="diachi" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="diachi" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             <tr>
                 <th>Ghi chú </th>
-                <td><input className="form-control" type="text" name="ghichu" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="ghichu" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             
               <tr>
@@ -507,7 +507,7 @@ export default function HD() {
               </tr>
               <tr>
                 <th>Trạng thái </th>
-                <td><input className="form-control" type="text" name="trangthai"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="trangthai"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
               <tr>
                 <th> Tổng tiền </th>

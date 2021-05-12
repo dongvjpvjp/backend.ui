@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 
 const ListHH = (props) => {
@@ -258,7 +259,7 @@ export default function HD() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)} /> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -299,7 +300,7 @@ export default function HD() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTSP[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTSP[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)} /> </td>
                   </tr>                      
                 </tbody></table>
               <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaCTOnclick(event)}> Cập Nhật CT SP </button>
@@ -349,23 +350,23 @@ export default function HD() {
               </tr>   
              <tr>
                 <th> Tên SP </th>
-                <td><input className="form-control" type="text" name="tensp"  placeholder={State.AllSP[0].tensp} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="tensp"  placeholder={State.AllSP[0].tensp} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
               </tr>
              <tr>
                 <th> Loại SP </th>
-                <td><input className="form-control" type="text" name="maloaisp"  placeholder={State.AllSP[0].maloaisp} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="maloaisp"  placeholder={State.AllSP[0].maloaisp} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
             </tr>
              <tr>
                 <th> Nội dung </th>
-                <td><input className="form-control" type="text" name="noidung"  placeholder={State.AllSP[0].noidung} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="noidung"  placeholder={State.AllSP[0].noidung} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /></td>
             </tr>
              <tr>
                 <th> Giá bán </th>
-                <td><input className="form-control" type="text" name="giaban"  placeholder={State.AllSP[0].giaban} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="giaban"  placeholder={State.AllSP[0].giaban} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
             </tr>
              <tr>
                 <th> Trạng thái </th>
-                <td><input className="form-control" type="text" name="trangthai"  placeholder={State.AllSP[0].trangthai} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="trangthai"  placeholder={State.AllSP[0].trangthai} id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /></td>
             </tr>
              <tr>
                 <th> Ảnh SP </th>
@@ -386,27 +387,27 @@ export default function HD() {
 
               <tr>
                 <th>Mã SP </th>
-                <td><input className="form-control" type="text" name="masp"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="masp"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /> </td>
               </tr>   
              <tr>
                 <th> Tên SP </th>
-                <td><input className="form-control" type="text" name="tensp"   id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="tensp"   id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
               </tr>
              <tr>
                 <th> Loại SP </th>
-                <td><input className="form-control" type="text" name="maloaisp"   id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="maloaisp"   id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
             </tr>
              <tr>
                 <th> Nội dung </th>
-                <td><input className="form-control" type="text" name="noidung"  id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="noidung"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/></td>
             </tr>
              <tr>
                 <th> Giá bán </th>
-                <td><input className="form-control" type="text" name="giaban"  id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="giaban"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)} /></td>
             </tr>
              <tr>
                 <th> Trạng thái </th>
-                <td><input className="form-control" type="text" name="trangthai" id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="trangthai" id="diem" onChange={(event)=>Handler_Onchange(event)}  onKeyPress={(event)=>Handler.Char(event)}/></td>
             </tr>
              <tr>
                 <th> Ảnh SP </th>
@@ -431,8 +432,11 @@ export default function HD() {
                     <th scope="col">Mã SP</th>
                     <th scope="col">Tên SP</th>             
                     <th scope="col">Loại SP</th>                 
-                    <th scope="col">Ghi chú </th>
+                    <th scope="col">Giá bán </th>
+                    <th scope="col">Nội dung </th>
                     <th scope="col">Trạng thái</th>
+                    <th scope="col">Tác vụ khác</th>
+
                   </tr>
                 </thead>
                 <tbody>

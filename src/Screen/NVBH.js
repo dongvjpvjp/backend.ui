@@ -6,15 +6,34 @@ import Data from '../Component/NVBH/Data';
 export default function NVBH() {
     const history = useHistory();
     const [State, SetState] = useContext(Context);
-    const [Search,SetSearch] = useState('');
     const {manv} = useParams();
 
     const Handler_Search = async (event)=>{
-      // if(State.NVCNSTT===1&&State.QLNVSTT===0){
-      //   SetSearch(event.target.value);
-      //   let res = await axios.get(`http://localhost:8080/NV/GetInfoNV/${Search}`);
-      //   SetState({type:"AllNVInfo",payload:[res.data.data[0]]});
-      // }
+      let temp = event.target.value;
+      if(State.NVBHSTT===1&&State.QLKHSTT===0){
+        let res = await axios.get(`http://localhost:8080/KH/SearchInfo/${temp}`);
+        SetState({type:"AllKH",payload:res.data.data});
+      }
+      else if (State.NVBHSTT===0){
+        let res = await axios.get(`http://localhost:8080/NV/SK/SearchSK/${temp}`);
+        SetState({type:"AllSK",payload:res.data.data});
+      }
+      else if (State.NVBHSTT===2&&State.QLHDSTT===0){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchHD/${temp}`);
+        SetState({type:"AllHD",payload:res.data.data});
+      }
+      else if (State.NVBHSTT===2&&State.QLHDSTT===-1){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchCTHD/${temp}`);
+        SetState({type:"AllCTHD",payload:res.data.data});
+      }
+      else if (State.NVBHSTT===3&&State.QLPTHSTT===0){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchPhieuTraHang/${temp}`);
+        SetState({type:"AllPTH",payload:res.data.data});
+      }
+      else if (State.NVBHSTT===3&&State.QLPTHSTT===-1){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchCTPhieuTraHang/${temp}`);
+        SetState({type:"AllCTPTH",payload:res.data.data});
+      }
     }
     const Handler_LogOut = async (event)=>{
       event.preventDefault();
@@ -100,7 +119,7 @@ export default function NVBH() {
                       <div className="input-group-prepend">
                         <span className="input-group-text"><i className="fas fa-search" /></span>
                       </div>
-                      <input className="form-control" placeholder="Search" type="text" disabled onChange={(event)=>Handler_Search(event)}/>
+                      <input className="form-control" placeholder="Search" type="text" onChange={(event)=>Handler_Search(event)}/>
                     </div>
                   </div>
                   <button type="button" className="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 const ListCN = (props)=>{
   return props.data.map(item=>{
@@ -40,15 +41,15 @@ const ListCT = (props) => {
 
     }
         return  (
-        <tr key={item.maphieuchitien}>
+        <tr key={item?.maphieuchitien}>
             <td>{index}</td>
-            <td>{item.maphieuchitien}</td>
-            <td>{item.machinhanh}</td>
-            <td>{item.manv}</td>
-            <td>{item.noidung} </td>
-            <td>{item.ngaychi}</td>
+            <td>{item?.maphieuchitien}</td>
+            <td>{item?.machinhanh}</td>
+            <td>{item?.manv}</td>
+            <td>{item?.noidung} </td>
+            <td>{item?.ngaychi}</td>
             <td>
-               {item.sotienchi}
+               {item?.sotienchi}
             </td>
             <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
@@ -65,7 +66,8 @@ export default function QLCT() {
   const [CNInfo,SetCNInfo] = useState([]);
 
   const Handler_Onchange = (event)=>{
-    SetCTInfo({...CTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
+    if(State.QLPCTSTT===1) SetCTInfo({...CTInfo,machinhanh:State.AllPCT[0].machinhanh,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
+    else SetCTInfo({...CTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
 }
 const Handler_SuaOnclick = (event)=>{
   event.preventDefault();
@@ -127,13 +129,13 @@ const Handler_SuaOnclick = (event)=>{
       <table className="table">
         <tbody><tr>
             <th>Chi nhánh</th>
-            <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].machinhanh}>
+            <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].machinhanh} disabled>
                   <ListCN data={CNInfo}/>
                   </select>
             </td>
           </tr>
           <tr>
-            <th>Tên phiếu chi </th>
+            <th>Mã phiếu chi </th>
             <td><input className="form-control" type="text" name="maphieuchitien" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].maphieuchitien} disabled/> </td>
           </tr>
           <tr>
@@ -147,11 +149,11 @@ const Handler_SuaOnclick = (event)=>{
           </tr>   
           <tr>
             <th>Nội dung chi </th>
-            <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].noidung}/> </td>
+            <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].noidung} onKeyPress={(event)=>Handler.Char(event)} /> </td>
           </tr>
           <tr>
             <th>Tổng tiền </th>
-            <td><input className="form-control" type="text" name="sotienchi" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].sotienchi} /></td>
+            <td><input className="form-control" type="text" name="sotienchi" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].sotienchi} onKeyPress={(event)=>Handler.Number(event)}/></td>
           </tr>
         </tbody></table>
       <button name="nhap" type="Sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Xác nhận </button>
@@ -172,8 +174,8 @@ const Handler_SuaOnclick = (event)=>{
             </td>
           </tr>
           <tr>
-            <th>Tên phiếu chi </th>
-            <td><input className="form-control" type="text" name="maphieuchitien" onChange={(event)=>Handler_Onchange(event)} id="diem" /> </td>
+            <th>Mã phiếu chi </th>
+            <td><input className="form-control" type="text" name="maphieuchitien" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)} /> </td>
           </tr>
           <tr>
             <th>Nhân viên chi tiền </th>
@@ -186,11 +188,11 @@ const Handler_SuaOnclick = (event)=>{
           </tr>   
           <tr>
             <th>Nội dung chi </th>
-            <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)}/> </td>
+            <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
           </tr>
           <tr>
             <th>Tổng tiền </th>
-            <td><input className="form-control" type="text" name="sotienchi" onChange={(event)=>Handler_Onchange(event)} /></td>
+            <td><input className="form-control" type="text" name="sotienchi" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
           </tr>
         </tbody></table>
       <button name="nhap" type="Sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)}> Xác nhận </button>

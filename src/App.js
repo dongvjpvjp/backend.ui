@@ -23,6 +23,9 @@ function App() {
     AllSK:[],
     QLSKSTT:0,
     //PHIEU CHI/NHAN/SK INFO
+    AllDT:[],
+    QLDTSTT:0,
+    //Doanh thu
     AllHH:[],
     QLHHSTT:0,
     AllPN:[],
@@ -114,6 +117,17 @@ function App() {
       }
        //NV INFO
 
+      case "AllDT": {
+              return {
+                ...state,AllDT:action.payload
+              }
+            }
+      case "QLDTSTT": {
+              return {
+                ...state,QLDTSTT:action.payload
+              }
+            }
+       //Doanh thu INFO
       case "AllKH": {
               return {
                 ...state,AllKH:action.payload

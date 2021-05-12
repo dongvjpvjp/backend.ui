@@ -10,11 +10,47 @@ export default function NVT() {
     const {manv} = useParams();
 
     const Handler_Search = async (event)=>{
-      // if(State.NVCNSTT===1&&State.QLNVSTT===0){
-      //   SetSearch(event.target.value);
-      //   let res = await axios.get(`http://localhost:8080/NV/GetInfoNV/${Search}`);
-      //   SetState({type:"AllNVInfo",payload:[res.data.data[0]]});
-      // }
+      let temp = event.target.value
+      if(State.NVTSTT===1&&State.QLCNSTT===0){
+        let res = await axios.get(`http://localhost:8080/NV/CA/SearchChiNhanh/${temp}`);
+        SetState({type:"AllCN",payload:res.data.data});
+      }
+      else if(State.NVTSTT===2&&State.QLNVSTT===0){
+        let res = await axios.get(`http://localhost:8080/NV/SearchInfoNV/${temp}`);
+        SetState({type:"AllNVInfo",payload:res.data.data});
+      }
+      else if(State.NVTSTT===3&&State.QLKHOSTT===0){
+        let res = await axios.get(`http://localhost:8080/NV/KHO/SearchKho/${temp}`);
+        SetState({type:"AllKHO",payload:res.data.data});
+      }
+      else if(State.NVTSTT===4&&State.QLNCCSTT===0){
+        let res = await axios.get(`http://localhost:8080/NV/NCC/SearchNCC/${temp}`);
+        SetState({type:"AllNCC",payload:res.data.data});
+      }
+      else if(State.NVTSTT===5&&State.QLSPSTT===0){
+        let res = await axios.get(`http://localhost:8080/Data/SP/SearchSanPham/${temp}`);
+        SetState({type:"AllSP",payload:res.data.data});
+      }
+      else if(State.NVTSTT===5&&State.QLSPSTT===-1){
+        let res = await axios.get(`http://localhost:8080/Data/SP/SearchCTSanPham/${temp}`);
+        SetState({type:"AllCTSP",payload:res.data.data});
+      }
+      else if (State.NVTSTT===6&&State.QLHDSTT===0){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchHD/${temp}`);
+        SetState({type:"AllHD",payload:res.data.data});
+      }
+      else if (State.NVTSTT===6&&State.QLHDSTT === -1){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchCTHD/${temp}`);
+        SetState({type:"AllCTHD",payload:res.data.data});
+      }
+      else if (State.NVTSTT===7&&State.QLPTHSTT===0){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchPhieuTraHang/${temp}`);
+        SetState({type:"AllPTH",payload:res.data.data});
+      }
+      else if (State.NVTSTT===7&&State.QLPTHSTT=== -1){
+        let res = await axios.get(`http://localhost:8080/SYS/SearchCTPhieuTraHang/${temp}`);
+        SetState({type:"AllCTPTH",payload:res.data.data});
+      }
     }
     const Handler_LogOut = async (event)=>{
       event.preventDefault();
@@ -130,7 +166,7 @@ export default function NVT() {
                       <div className="input-group-prepend">
                         <span className="input-group-text"><i className="fas fa-search" /></span>
                       </div>
-                      <input className="form-control" placeholder="Search" type="text" disabled onChange={(event)=>Handler_Search(event)}/>
+                      <input className="form-control" placeholder="Search" type="text" onChange={(event)=>Handler_Search(event)}/>
                     </div>
                   </div>
                   <button type="button" className="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">

@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
+import Handler from '../../Utility/Handler'
 
 
 const ListHD = (props) => {
@@ -54,12 +55,12 @@ const ListCT = props => {
             res.data.access === 1 ? temp() : alert(`Xóa thông tin CT PTH thất bại lỗi ${err}: ${res.data.error}`)
         })
         }
-        return <tr key={item.maphieutrahangchitiet}>
+        return <tr key={item?.maphieutrahangchitiet}>
         <th scope="row">{index}</th>
-        <td>{item.maphieutrahangchitiet}</td>
-        <td>{item.masp}</td>
-        <td>{item.soluong}</td>
-        <td>{item.dongia}</td>
+        <td>{item?.maphieutrahangchitiet}</td>
+        <td>{item?.masp}</td>
+        <td>{item?.soluong}</td>
+        <td>{item?.dongia}</td>
         <td><a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
           <a href="xoa_nv.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XoaOnClick(event)}> Xóa </a> </td>
         </tr>
@@ -104,12 +105,12 @@ const ListNV = (props) => {
         }
 
        
-        return <tr key={item.maphieutrahang}>
+        return <tr key={item?.maphieutrahang}>
         <th scope="row">{index}</th>
-        <td>{item.maphieutrahang}</td>
-        <td>{item.mahoadon}</td>
-        <td>{item.ngaytra}</td>
-        <td>{item.tongtien}</td>
+        <td>{item?.maphieutrahang}</td>
+        <td>{item?.mahoadon}</td>
+        <td>{item?.ngaytra}</td>
+        <td>{item?.tongtien}</td>
     
         <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XemOnclick(event)}> Xem </a>
@@ -265,11 +266,11 @@ export default function HD() {
                   </tr>
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia"  id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -311,11 +312,11 @@ export default function HD() {
                
                   <tr>
                     <th>Số lượng </th>
-                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTPTH[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="soluong" placeholder={State.AllCTPTH[0].soluong} id="diem" onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/> </td>
                   </tr>   
                   <tr>
                     <th>Đơn giá </th>
-                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTPTH[0].dongia} id="diem" onChange={(event)=>Handler_CTOnchange(event)} /> </td>
+                    <td><input className="form-control" type="text" name="dongia" placeholder={State.AllCTPTH[0].dongia} id="diem" onKeyPress={(event)=>Handler.Number(event)} onChange={(event)=>Handler_CTOnchange(event)} /> </td>
                   </tr>   
                    
                 </tbody></table>
@@ -329,7 +330,7 @@ export default function HD() {
             <div className="container-fluid mt--10">
             {/* table */}
 
-            <h2> Quản lý Chi Tiết Hóa Đơn</h2>
+            <h2> Quản lý Chi Tiết Phiếu Trả Hàng</h2>
             <form action method="get">
               <table className="table_nhapkho">
                 <thead>
@@ -368,7 +369,7 @@ export default function HD() {
               <tr>
                     <th>Mã Hóa Đơn</th>
                     <td>
-                      <select style={{width: '75%'}} placeholder={State.AllCTPTH[0]?.mahoadon} name="mahoadon" onChange={(event)=>Handler_Onchange(event)}>
+                      <select style={{width: '75%'}} placeholder={State.AllCTPTH[0]?.mahoadon} name="mahoadon" disabled onChange={(event)=>Handler_Onchange(event)}>
                       <option/>
                       <ListHD data={HDInfo}/>
                       </select>
@@ -384,7 +385,7 @@ export default function HD() {
               </tr>
               
             </tbody></table>
-          <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Hóa Đơn </button>
+          <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Phiếu Trả Hàng </button>
         </form>
       </div>)
         // SUA INFO NV
@@ -398,7 +399,7 @@ export default function HD() {
 
             <tr>
                 <th>Mã PTH </th>
-                <td><input className="form-control" type="text" name="maphieutrahang"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
+                <td><input className="form-control" type="text" name="maphieutrahang"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>   
               <tr>
                     <th>Mã Hóa Đơn</th>
