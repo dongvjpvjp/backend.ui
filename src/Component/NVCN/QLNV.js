@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext,useRef} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
 import Handler from '../../Utility/Handler'
@@ -64,8 +64,9 @@ export default function QLNV() {
     const [State, SetState] = useContext(Context);
     const [NVInfo,SetNVInfo] = useState({});
     const [CNInfo,SetCNInfo] = useState([]);
+    const nvRef = useRef();
     const Handler_Onchange = (event)=>{
-        SetNVInfo({...NVInfo,[event.target.name]:event.target.value})
+        SetNVInfo({...NVInfo,[event.target.name]:event.target.value,anhnv:window.location.origin +`/`+nvRef.current.files[0]?.name})
     }
     const Handler_SuaOnclick = (event)=>{
         event.preventDefault();
@@ -171,6 +172,10 @@ export default function QLNV() {
                 <th>Hệ số lương</th>
                 <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].hesoluong} id="diem" onKeyPress={(event)=>Handler.Number(event)} /> </td>
               </tr>
+              <tr>
+                <th>Ảnh NV </th>
+                <td><input type="file" ref={nvRef} name="anhnv" onChange={(event)=>Handler_Onchange(event)} /></td>
+              </tr>
             </tbody></table>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Nhân viên </button>
         </form>
@@ -254,7 +259,7 @@ export default function QLNV() {
               </tr>
               <tr>
                 <th>Ảnh NV </th>
-                <td><input type="file" name="anhnv" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input type="file" name="anhnv" ref={nvRef} onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
             </tbody></table>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Nhân viên </button>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext,useRef} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
 import Handler from '../../Utility/Handler'
@@ -123,13 +123,14 @@ export default function HD() {
     const [SPInfo,SetSPInfo] = useState({});
     const [SPCTInfo,SetSPCTInfo] = useState({});
     const [HHInfo,SetHHInfo] = useState([]);
-   
+    const spRef = useRef();
 
 
  
 
     const Handler_Onchange = (event)=>{
-        SetSPInfo({...SPInfo,[event.target.name]:event.target.value})
+        SetSPInfo({...SPInfo,[event.target.name]:event.target.value,anhsp:window.location.origin +`/`+spRef.current.files[0]?.name})
+        console.log()
         // State.QLSPSTT!==2 ? SetSPInfo({...SPInfo,[event.target.name]:event.target.value}) : SetSPInfo({...SPInfo,[event.target.name]:event.target.value})
     }
     const Handler_SuaOnclick = (event)=>{
@@ -370,7 +371,7 @@ export default function HD() {
             </tr>
              <tr>
                 <th> Ảnh SP </th>
-                <td><input className="form-control" type="file" name="anhsp"  placeholder={State.AllSP[0].anhsp} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" ref={spRef} type="file" name="anhsp"  placeholder={State.AllSP[0].anhsp} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
             </tr>
             </tbody></table>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật SP </button>
@@ -411,7 +412,7 @@ export default function HD() {
             </tr>
              <tr>
                 <th> Ảnh SP </th>
-                <td><input className="form-control" type="file" name="anhsp" id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="file" ref={spRef} name="anhsp" id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
             </tr>
             </tbody></table>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm SP </button>
