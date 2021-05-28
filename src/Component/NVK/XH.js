@@ -112,9 +112,7 @@ const ListNV = (props) => {
             
 
         }
-
-      
-        return <tr key={item?.maphieuxuat}>
+        return <tr className= 'table' key={item?.maphieuxuat}>
         <th scope="row">{index}</th>
         <td>{item?.maphieuxuat}</td>
         <td>{item?.tenphieuxuat}</td>
@@ -130,10 +128,7 @@ const ListNV = (props) => {
         </td>
       </tr>
     })
-}
-
-
-    
+} 
 export default function XH() {
     const [State, SetState] = useContext(Context);
     const [PXInfo,SetPXInfo] = useState({});
@@ -499,6 +494,7 @@ export default function XH() {
                     <th scope="col">Mã CN</th>
                     <th scope="col">Ngày Xuất</th>
                     <th scope="col">Tổng tiền </th>
+                    <th scope="col">Tác vụ khác </th>
                   </tr>
                 </thead>
                 <tbody>

@@ -2,8 +2,7 @@ import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
 import Handler from '../../Utility/Handler'
-
-
+import'../table.css'
 const ListHD = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item)=>{
@@ -56,7 +55,7 @@ const ListCT = props => {
         })
         }
         return <tr key={item?.maphieutrahangchitiet}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item?.maphieutrahangchitiet}</td>
         <td>{item?.masp}</td>
         <td>{item?.soluong}</td>
@@ -332,7 +331,7 @@ export default function HD() {
 
             <h2> Quản lý Chi Tiết Phiếu Trả Hàng</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>
@@ -428,7 +427,7 @@ export default function HD() {
         //THem NV
         
         default:return (
-            <div className="container-fluid mt--10">
+            <div className="container-fluid mt--10 ">
             {/* table */}
             <h2> Quản lý Phiếu Trả Hàng</h2>
             <form action method="get">
@@ -440,6 +439,7 @@ export default function HD() {
                     <th scope="col">Mã HD</th>             
                     <th scope="col">Ngày Trả</th>                 
                     <th scope="col">Tổng tiền </th>
+                    <th scope="col">Tác vụ </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -447,7 +447,7 @@ export default function HD() {
                 </tbody>
               </table>
             </form>
-            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm PTH </a> </h2>
+            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black', padding:'5px'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm PTH </a> </h2>
           </div>
         )
     }

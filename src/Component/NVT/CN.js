@@ -185,7 +185,7 @@ export default function CN() {
         default:return (
             <div className="container-fluid mt--10">
             {/* table */}
-            <h2> Quản lý Sự Kiện</h2>
+            <h2> Quản Lý Chi Nhánh</h2>
             <form action method="get">
               <table className="table_nhapkho">
                 <thead>
@@ -205,7 +205,7 @@ export default function CN() {
                 </tbody>
               </table>
             </form>
-            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm Sự Kiện </a> </h2>
+            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm Chi Nhánh </a> </h2>
           </div>
         )
     }

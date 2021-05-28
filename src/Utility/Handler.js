@@ -1,7 +1,7 @@
 const Handler = {
     Number:(event)=>{
         let x = event.keyCode || event.which;
-        if(!x<=48&&x>=57 ) event.preventDefault();  
+        if(x<=47||x>=58 ) event.preventDefault();  
 
     },
     Email:(event)=>{

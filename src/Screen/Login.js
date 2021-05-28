@@ -26,8 +26,7 @@ export default function Login() {
                 else if (res.data.access===4) {
                     history.replace(`/NVT/${Log.manv}`)
                 };
-                let res2 = await axios.get(`http://localhost:8080/NV/GetInfoNV/${Log.manv}`)
-                SetState({type:"NVInfo",payload:res2.data.data[0]})
+               
             }
             else alert("TAI KHOAN KHONG TON TAI");
         }).catch(err=>console.log(`loi dang nhap ${err}`))

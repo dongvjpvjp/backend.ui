@@ -149,7 +149,7 @@ export default function KH() {
       </div>)
         // SUA INFO NV
         case 2: return (
-            <div className="container-fluid mt--10">
+        <div className="container-fluid mt--10">
         {/* table */}
         <form> 
           <table className="table">
@@ -191,7 +191,6 @@ export default function KH() {
       </div>
         )   
         //THem NV
-        
         default:return (
             <div className="container-fluid mt--10">
             {/* table */}

@@ -2,7 +2,6 @@ import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
 import Handler from '../../Utility/Handler'
-
 const ListHD = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item)=>{
@@ -65,7 +64,7 @@ const ListCT = props => {
         })
         }
         return <tr key={item?.machitiethoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item?.machitiethoadon}</td>
         <td>{item?.masp}</td>
         <td>{item?.tensp}</td>
@@ -116,7 +115,7 @@ const ListNV = (props) => {
 
        
         return <tr key={item?.mahoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item?.mahoadon}</td>
         <td>{item?.tenhoadon}</td>
         <td>{item?.makh}</td>
@@ -355,6 +354,7 @@ export default function HD() {
                     <th scope="col">STT</th>
                     <th scope="col">Mã CT Hóa Đơn</th>
                     <th scope="col">Mã SP</th>
+                    <th scope="col">Tên SP</th>
                     <th scope="col">Số lượng</th>
                     <th scope="col">Đơn giá</th>
                     <th scope="col">Tác vụ khác</th>
@@ -517,6 +517,7 @@ export default function HD() {
             </tbody></table>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Hóa Đơn </button>
         </form>
+        <br></br>
       </div>
         )   
         //THem NV
@@ -524,7 +525,8 @@ export default function HD() {
         default:return (
             <div className="container-fluid mt--10">
             {/* table */}
-            <h2> Quản lý Phiếu Nhập</h2>
+            <h2> Quản Lý Hóa Đơn</h2>
+            <br></br>
             <form action method="get">
               <table className="table_nhapkho">
                 <thead>
@@ -541,6 +543,7 @@ export default function HD() {
                     <th scope="col">Ngày Tạo</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Tổng tiền </th>
+                    <th scope="col">Tác vụ khác </th>
                   </tr>
                 </thead>
                 <tbody>

@@ -505,6 +505,7 @@ export default function NH() {
                     <th scope="col">Mã Kho</th>
                     <th scope="col">Ngày Nhập</th>
                     <th scope="col">Tổng tiền </th>
+                    <th scope="col">Tác vụ khác </th>
                   </tr>
                 </thead>
                 <tbody>
