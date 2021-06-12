@@ -66,7 +66,7 @@ export default function QLV() {
   const [CNInfo,SetCNInfo] = useState([]);
 
   const Handler_Onchange = (event)=>{
-    State.QLPNTSTT === 1 ?  SetNTInfo({...NTInfo,manv:State.NVInfo.manv,machinhanh:State.AllPNT[0].machinhanh,[event.target.name]:event.target.value}) : SetNTInfo({...NTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
+    State.QLPNTSTT === 1 ?  SetNTInfo({...NTInfo,manv:State.NVInfo.manv,machinhanh:State.AllPNT[0].machinhanh,[event.target.name]:event.target.value}) : SetNTInfo({...NTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value,ngaynhan:Handler.Now_Date()})
 }
 const Handler_SuaOnclick = (event)=>{
   event.preventDefault();
@@ -125,7 +125,7 @@ const Handler_SuaOnclick = (event)=>{
    
     <h2>Sửa phiếu nhận</h2>
     <form method="post"> 
-      <table className="table">
+      <table className="tablesuanhanvien">
         <tbody><tr>
             <th>Chi nhánh</th>
             <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPNT[0].machinhanh} disabled>
@@ -163,7 +163,7 @@ const Handler_SuaOnclick = (event)=>{
    
     <h2>Lập phiếu nhận</h2>
     <form method="post"> 
-      <table className="table">
+      <table className="tablesuanhanvien">
         <tbody><tr>
             <th>Chi nhánh</th>
             <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)}>
@@ -181,10 +181,10 @@ const Handler_SuaOnclick = (event)=>{
             <td><input className="form-control" type="text" name="manv" disabled placeholder={State.NVInfo.manv} id="diem" /> </td>
           </tr>
     
-          <tr>
+          {/* <tr>
             <th>Ngày nhận </th>
             <td><input type="datetime-local" id="Ngaynhap" name="ngaynhan" onChange={(event)=>Handler_Onchange(event)} /></td>
-          </tr>   
+          </tr>    */}
           <tr>
             <th>Nội dung nhận </th>
             <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
@@ -201,7 +201,7 @@ const Handler_SuaOnclick = (event)=>{
       <div className="container-fluid mt--10">
         <h2> Quản lý Phiếu Nhận Tiền</h2>
         <form action method="get">
-          <table className="table_nhapkho">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">STT</th>

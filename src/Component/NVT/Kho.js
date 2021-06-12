@@ -108,7 +108,7 @@ export default function Kho() {
         {/* table */}
         <h2> Sửa Kho</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -126,6 +126,7 @@ export default function Kho() {
            
              
             </tbody></table>
+            <br></br>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật KHO </button>
         </form>
       </div>)
@@ -135,7 +136,7 @@ export default function Kho() {
         {/* table */}
         <h2> Thêm KHO </h2>
         <form>
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -153,6 +154,7 @@ export default function Kho() {
               </tr>
              
             </tbody></table>
+            <br></br>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Kho </button>
         </form>
       </div>
@@ -164,7 +166,7 @@ export default function Kho() {
             {/* table */}
             <h2> Quản lý Kho</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

@@ -98,7 +98,7 @@ const ListNV = (props) => {
 
        
         return <tr key={item.masp}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.masp}</td>
         <td>{item.tensp}</td>
         <td>{item.maloaisp}</td>
@@ -237,7 +237,7 @@ export default function HD() {
             <div className="container-fluid mt--10">
             <h2> Thêm SP Chi Tiết </h2>
             <form> 
-              <table className="table">
+              <table className="tablesuanhanvien">
                 <tbody>
                   <tr>
                     <th>Mã Sản Phẩm</th>
@@ -274,7 +274,7 @@ export default function HD() {
 
             <h2> Sửa SP Chi Tiết </h2>
             <form> 
-              <table className="table">
+              <table className="tablesuanhanvien">
                 <tbody>
                  
                   <tr>
@@ -316,7 +316,7 @@ export default function HD() {
 
             <h2> Quản lý Chi Tiết Sản Phẩm</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>
@@ -342,7 +342,7 @@ export default function HD() {
   
         <h2> Sửa SP</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
 
               <tr>
@@ -383,7 +383,7 @@ export default function HD() {
         {/* table */}
         <h2> Thêm SP </h2>
         <form>
-        <table className="table">
+        <table className="tablesuanhanvien">
             <tbody>
 
               <tr>
@@ -426,7 +426,7 @@ export default function HD() {
             {/* table */}
             <h2> Quản lý Thông Tin Sản Phẩm</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>

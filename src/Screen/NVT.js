@@ -304,24 +304,21 @@ export default function NVT() {
                       </div>
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-single-02" />
-                        <span>My profile</span>
+                        <span>Thông tin nhân viên</span>
                       </a>
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-settings-gear-65" />
-                        <span>Settings</span>
+                        <span>Cài đặt</span>
                       </a>
-                      <a href="#!" className="dropdown-item">
-                        <i className="ni ni-calendar-grid-58" />
-                        <span>Activity</span>
-                      </a>
+                     
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-support-16" />
-                        <span>register</span>
+                        <span>Quản lý tài khoản</span>
                       </a>
                       <div className="dropdown-divider" />
                       <a href="#!" className="dropdown-item" onClick={(event)=>Handler_LogOut(event)}>
                         <i className="ni ni-user-run" />
-                        <span>Logout</span>
+                        <span>Đăng xuất</span>
                       </a>
                     </div>
                   </li>

@@ -5,7 +5,7 @@ import Context from '../../Context';
 const ListCTNV = (props) => {
     return props.data.map((item,index)=>{
         return <tr key={item.machitiethoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.machitiethoadon}</td>
         <td>{item.tensp}</td>
         <td>{item.masp}</td>
@@ -29,7 +29,7 @@ const ListNV = (props) => {
         }
 
         return <tr key={item.mahoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.mahoadon}</td>
         <td>{item.tenhoadon}</td>
         <td>{item.machinhanh}</td>
@@ -71,7 +71,7 @@ export default function HD() {
             {/* table */}
             <h2> Thông tin chi tiết hóa đơn {State.AllCTHD[0]?.mahoadon} </h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>
@@ -99,7 +99,7 @@ export default function HD() {
             {/* table */}
             <h2> Thông tin hóa đơn</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

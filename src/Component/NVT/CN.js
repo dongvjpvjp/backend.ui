@@ -32,7 +32,7 @@ const ListNV = (props) => {
 
         }
         return <tr key={item.machinhanh}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.machinhanh}</td>
         <td>{item.tenchinhanh}</td>
         <td>{item.diachi}</td>
@@ -111,7 +111,7 @@ export default function CN() {
         <h2> Sửa Chi Nhánh</h2>
 
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -148,7 +148,7 @@ export default function CN() {
         {/* table */}
         <h2> Thêm Chi Nhánh </h2>
         <form>
-        <table className="table">
+        <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -187,7 +187,7 @@ export default function CN() {
             {/* table */}
             <h2> Quản Lý Chi Nhánh</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

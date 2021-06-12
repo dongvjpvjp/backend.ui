@@ -63,7 +63,7 @@ export default function PTH() {
             {/* table */}
             <h2> Thông tin chi tiết phiếu trả hàng {State.AllCTPTH[0]?.maphieutrahang} </h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>
@@ -90,7 +90,7 @@ export default function PTH() {
             {/* table */}
             <h2> Thông tin phiếu trả hàng</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

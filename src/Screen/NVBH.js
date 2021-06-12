@@ -57,7 +57,7 @@ export default function NVBH() {
     
     return (
         <div>
-        <nav className="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+        <nav className="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main"style={{fontSize:'15px'}}>
           <div className="scrollbar-inner">
             {/* Brand */}
             <div className="sidenav-header  align-items-center">
@@ -109,7 +109,7 @@ export default function NVBH() {
         {/* Main content */}
         <div className="main-content" id="panel">
           {/* Topnav */}
-          <nav className="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+          <nav className="  navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom " >
             <div className="container-fluid">
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 {/* Search form */}
@@ -257,24 +257,20 @@ export default function NVBH() {
                       </div>
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-single-02" />
-                        <span>My profile</span>
+                        <span>Thông tin nhân viên</span>
                       </a>
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-settings-gear-65" />
-                        <span>Settings</span>
-                      </a>
-                      <a href="#!" className="dropdown-item">
-                        <i className="ni ni-calendar-grid-58" />
-                        <span>Activity</span>
+                        <span>Cài đặt</span>
                       </a>
                       <a href="#!" className="dropdown-item">
                         <i className="ni ni-support-16" />
-                        <span>register</span>
+                        <span>Quản lý tài khoản</span>
                       </a>
                       <div className="dropdown-divider" />
                       <a href="#!" className="dropdown-item" onClick={(event)=>Handler_LogOut(event)}>
                         <i className="ni ni-user-run" />
-                        <span>Logout</span>
+                        <span>Đăng xuất</span>
                       </a>
                     </div>
                   </li>

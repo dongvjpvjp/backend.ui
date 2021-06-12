@@ -18,6 +18,7 @@ const ListNV = (props) => {
     const Handler_XoaOnClick = (event) => {
       event.preventDefault();
       if (item.manv === State.NVInfo.manv) alert("Không thể xóa tài khoản này");
+      else if(item.machucvu===4)  alert("Không thể xóa tài khoản cùng cấp tổng");
       else {
         axios.delete(`http://localhost:8080/NV/DeleteNV/${item.manv}`).then((res, err) => {
           let temp = async () => {
@@ -34,10 +35,11 @@ const ListNV = (props) => {
 
     }
     return <tr key={item.manv}>
-      <th scope="row">{index}</th>
+      <td scope="row">{index}</td>
       <td>{item.manv}</td>
       <td>{item.tennv}</td>
-      <td>{item.machuvu}</td>
+      <td>{item.machucvu===1?"NVBH":item.machucvu===2?"NV Kho":item.machucvu===3?"NV Chi Nhánh":"NV Tổng"}
+        </td>
       <td>{item.ngaysinh}</td>
       <td>{item.cmnd}</td>
       <td>{item.sdt}</td>
@@ -125,7 +127,7 @@ export default function QLNV() {
         {/* table */}
         <h2> Sửa nhân viên</h2>
         <form>
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody><tr>
               <th>Tên Chi nhánh</th>
               <td>
@@ -181,13 +183,13 @@ export default function QLNV() {
         {/* table */}
         <h2> Thêm NV </h2>
         <form>
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody><tr>
               <th>Tên Chi nhánh</th>
               <td>
                 <select style={{ width: '75%' }} name="machinhanh" onChange={(event) => Handler_Onchange(event)}>
                   <option />
-                  <ListCN data={CNInfo} />
+                  <ListCN data={CNInfo}/>
                 </select>
               </td>
             </tr>
@@ -268,7 +270,7 @@ export default function QLNV() {
         {/* table */}
         <h2> Quản lý Nhân viên</h2>
         <form action method="get">
-          <table className="table_nhapkho">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">STT</th>

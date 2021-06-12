@@ -109,7 +109,7 @@ export default function SK() {
         {/* table */}
         <h2> Sửa Sự Kiện</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -146,7 +146,7 @@ export default function SK() {
         {/* table */}
         <h2> Thêm Sự Kiện </h2>
         <form>
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -188,7 +188,7 @@ export default function SK() {
             {/* table */}
             <h2> Quản lý Sự Kiện</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

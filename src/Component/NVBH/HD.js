@@ -2,6 +2,7 @@ import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import Context from '../../Context';
 import Handler from '../../Utility/Handler'
+
 const ListHD = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item)=>{
@@ -75,7 +76,21 @@ const ListCT = props => {
         </tr>
     })
 }
-
+const ListShowCT = (props)=>{
+  return props.data.map((item,index)=>{
+    let temp=item?.soluong*item?.dongia;
+    return (
+      <tr key={index}>
+      <td>{index}</td>
+      <td>{item?.tensp}</td>
+      <td>{item?.soluong}</td>
+      <td>{item?.dongia}</td>
+      <td>{temp}</td>
+   
+    </tr>
+    )
+  })
+}
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item,index)=>{
@@ -147,12 +162,50 @@ export default function HD() {
     const [SPInfo,SetSPInfo] = useState([]);
     const [SKInfo,SetSKInfo] = useState([]);
     const [CNInfo,SetCNInfo] = useState([]);
+    const [SPData,SetSPData] = useState([]);
+    const [Temp,SetTemp] = useState([]);
+    const ThemSP_Onclick = (event)=>{
+      event.preventDefault();
+      
+      axios.get(`http://localhost:8080/Data/SP/GetSanPham/${HDCTInfo?.masp}`).then(res=>{
+        // masp, soluong, mahoadon, dongia
+        let temp2= {masp:HDCTInfo?.masp,soluong:HDCTInfo?.soluong,mahoadon:HDInfo.mahoadon,dongia:res.data.data[0].giaban,tensp:res.data.data[0].tensp}
+        SetSPData([...SPData,temp2]); 
+        let temp3 = {...temp2}
+        delete temp3.tensp;
+        SetTemp([...Temp,Object.values(temp3)]);
+        SetHDCTInfo({...HDCTInfo,tongtien:HDCTInfo?.tongtien+(temp2.dongia*temp2.soluong)})
+      });
+    }
+    const ThemHDAUTO = (event)=>{
+      event.preventDefault();
+      
+      let tempdata = JSON.parse(JSON.stringify({...HDInfo,values:Temp}));
+      
+      let temp =   () => {
+        axios.post(`http://localhost:8080/SYS/InsertHoaDonAuto`,tempdata).then((res,err)=>{
+            let temp2 = async () => {
+                alert("Thêm thông tin hóa đơn thành công");
+                let res = await axios.get("http://localhost:8080/SYS/GetAllHD")
+            if(res.data.data!==undefined){
+            SetState({type:"AllHD",payload:res.data.data})
+            SetState({type:"QLHDSTT",payload:0});
+            SetSPData([]);
+            SetTemp([]);
+            SetHDCTInfo({tongtien:0});
+            }
+            }
+            res.data.access === 1 ? temp2() : alert(`Thêm thông tin hóa đơn thất bại lỗi ${err}: ${res.data.error}`)
+        }
+        )
+    }
+    
+    State.QLHDSTT !==2? SetState({type:"QLHDSTT",payload:2}) : temp();
 
- 
-
+    }
     const Handler_Onchange = (event)=>{
         
-        State.QLHDSTT!==2 ? SetHDInfo({...HDInfo,[event.target.name]:event.target.value}) : SetHDInfo({...HDInfo,tongtien:0,[event.target.name]:event.target.value})
+        State.QLHDSTT!==2 ? SetHDInfo({...HDInfo,[event.target.name]:event.target.value}) : SetHDInfo({...HDInfo,tongtien:0,[event.target.name]:event.target.value,ngaytao:Handler.Now_Date()})
     }
     const Handler_SuaOnclick = (event)=>{
         event.preventDefault();
@@ -237,7 +290,10 @@ export default function HD() {
                 if(res.data.data!==undefined){
                   SetState({type:"AllHD",payload:res.data.data})
                 SetState({type:"QLHDSTT",payload:0});
+                SetHDCTInfo({tongtien:0});   
                 }
+                // console.log(Handler.Now_Date())
+
         })()
         
     },[])
@@ -348,7 +404,7 @@ export default function HD() {
 
             <h2> Quản lý Chi Tiết Hóa Đơn</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>
@@ -446,13 +502,21 @@ export default function HD() {
       </div>)
         // SUA INFO NV
         case 2: return (
-            <div className="container-fluid mt--10">
-        {/* table */}
-        <h2> Thêm Hóa Đơn </h2>
-        <form>
-        <table className="table">
-            <tbody>
-
+          <div className="container-fluid mt--10" >
+          {/* table */}
+          <h2>Lập hóa đơn</h2>
+          <form>
+            <table className="tablelaphoadon">
+              <tbody>
+              <tr>
+                <th>Chi Nhánh</th>
+                <td>
+                  <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)}>
+                  <option/>
+                  <ListCN data={CNInfo}/>
+                  </select>
+                </td>
+              </tr>
               <tr>
                 <th>Mã Hóa Đơn </th>
                 <td><input className="form-control" type="text" name="mahoadon"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)} /> </td>
@@ -470,16 +534,7 @@ export default function HD() {
                   </select>
                 </td>
               </tr>   
-              <tr>
-                <th>Chi Nhánh</th>
-                <td>
-                  <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)}>
-                  <option/>
-                  <ListCN data={CNInfo}/>
-                  </select>
-                </td>
-              </tr>
-              <tr>
+                <tr>
                 <th>Sự Kiện</th>
                 <td>
                   <select style={{width: '75%'}} name="masukien"  onChange={(event)=>Handler_Onchange(event)}>
@@ -488,7 +543,12 @@ export default function HD() {
                   </select>
                 </td>
               </tr>     
-            <tr>
+              
+                {/* <tr>
+                  <th>Ngày tạo </th>
+                  <td><input type="datetime-local" id="ngaytao" name="ngaytao" onChange={(event)=>Handler_Onchange(event)} /></td>
+                </tr> */}
+                <tr>
                 <th>SDT </th>
                 <td><input className="form-control"  type="text" name="sdt"  id="diem" onKeyPress={(event)=>Handler.Number(event)} onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
@@ -501,24 +561,50 @@ export default function HD() {
                 <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="ghichu" id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
               </tr>   
             
-              <tr>
-                <th>Ngày Tạo</th>
-                <td><input className="form-control" type="datetime-local" name="ngaytao"  onChange={(event)=>Handler_Onchange(event)}/> </td>
-              </tr>
-              <tr>
-                <th>Trạng thái </th>
-                <td><input className="form-control" onKeyPress={(event)=>Handler.Char(event)} type="text" name="trangthai"  id="diem" onChange={(event)=>Handler_Onchange(event)} /> </td>
-              </tr>   
-              <tr>
-                <th> Tổng tiền </th>
-                <td><input className="form-control" type="text" name="tongtien" disabled id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
-              </tr>
-              
-            </tbody></table>
-          <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Hóa Đơn </button>
-        </form>
-        <br></br>
-      </div>
+                <tr>
+                  <th>Trạng thái </th>
+                  <td><input className="form-control" type="text" name="trangthai" id="trangthai" onChange={(event)=>Handler_Onchange(event)} /></td>
+                </tr>
+                <tr>
+                  <th>
+                    <div className="mt-3">
+                    <select style={{width: '50%'}} name="masp" placeholder={State.AllCTHD[0]?.masp} onChange={(event)=>Handler_CTOnchange(event)}>
+                      <option/>
+                      <ListSP data={SPInfo} />
+                      </select>
+                      <label className=" ml-2 mr-2">Sản phẩm </label>
+                      <input  classsName ="ml-2" type="text" name="soluong" id onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/>
+                      <label className=" ml-2 mr-2">Số lượng </label>
+                    </div>
+                    <button  className="btn btn-primary"  onClick={(event)=>ThemSP_Onclick(event)}>Lựa chọn sản phẩm</button>
+                  </th><td>
+                    <div>
+                      <table className="tablechitietsanpham container-fluid mt-2">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th> Tên sản phẩm</th>
+                            <th> Số lượng</th>
+                            <th> Đơn giá</th>
+                            <th> Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <ListShowCT data={SPData}/>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>               
+                <tr>
+                  <th>Tổng tiền </th>
+                  <td><input className="form-control" type="text" name="tongtien" disabled id="diem" onChange={(event)=>Handler_Onchange(event)} placeholder={HDCTInfo?.tongtien} /></td>
+                </tr>
+              </tbody></table>
+              <br></br>
+            <button name="Them" type="Sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>ThemHDAUTO(event)}> Xác nhận </button>
+          </form>
+        </div>
         )   
         //THem NV
         
@@ -528,7 +614,7 @@ export default function HD() {
             <h2> Quản Lý Hóa Đơn</h2>
             <br></br>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>

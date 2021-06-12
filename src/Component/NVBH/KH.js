@@ -151,10 +151,10 @@ export default function KH() {
         case 2: return (
         <div className="container-fluid mt--10">
         {/* table */}
+        <h2> Thêm Khách Hàng</h2>
         <form> 
-          <table className="table">
+          <table className="tablethemkhachhang">
             <tbody>
-          
               <tr>
               </tr><tr>
                 <th>Mã Khách Hàng </th>
@@ -196,7 +196,7 @@ export default function KH() {
             {/* table */}
             <h2> Quản lý Thông Tin Khách Hàng</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

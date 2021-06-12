@@ -67,7 +67,7 @@ export default function QLCT() {
 
   const Handler_Onchange = (event)=>{
     if(State.QLPCTSTT===1) SetCTInfo({...CTInfo,machinhanh:State.AllPCT[0].machinhanh,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
-    else SetCTInfo({...CTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value})
+    else SetCTInfo({...CTInfo,manv:State.NVInfo.manv,[event.target.name]:event.target.value,ngaychi:Handler.Now_Date()})
 }
 const Handler_SuaOnclick = (event)=>{
   event.preventDefault();
@@ -126,7 +126,7 @@ const Handler_SuaOnclick = (event)=>{
    
     <h2>Sửa phiếu chi</h2>
     <form method="post"> 
-      <table className="table">
+      <table className="tablesuanhanvien">
         <tbody><tr>
             <th>Chi nhánh</th>
             <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllPCT[0].machinhanh} disabled>
@@ -164,7 +164,7 @@ const Handler_SuaOnclick = (event)=>{
    
     <h2>Lập phiếu chi</h2>
     <form method="post"> 
-      <table className="table">
+      <table className="tablesuanhanvien">
         <tbody><tr>
             <th>Chi nhánh</th>
             <td> <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)}>
@@ -182,10 +182,10 @@ const Handler_SuaOnclick = (event)=>{
             <td><input className="form-control" type="text" name="manv" disabled placeholder={State.NVInfo.manv} id="diem" /> </td>
           </tr>
     
-          <tr>
+          {/* <tr>
             <th>Ngày chi </th>
             <td><input type="datetime-local" id="Ngaynhap" name="ngaychi" onChange={(event)=>Handler_Onchange(event)} /></td>
-          </tr>   
+          </tr>    */}
           <tr>
             <th>Nội dung chi </th>
             <td><input className="form-control" type="text" name="noidung"  id="diem"  onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
@@ -195,6 +195,7 @@ const Handler_SuaOnclick = (event)=>{
             <td><input className="form-control" type="text" name="sotienchi" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Number(event)}/></td>
           </tr>
         </tbody></table>
+        <br></br>
       <button name="nhap" type="Sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)}> Xác nhận </button>
     </form>
   </div>)
@@ -202,7 +203,7 @@ const Handler_SuaOnclick = (event)=>{
       <div className="container-fluid mt--10">
         <h2> Quản lý Phiếu Chi Tiêu</h2>
         <form action method="get">
-          <table className="table_nhapkho">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">STT</th>

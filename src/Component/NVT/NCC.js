@@ -32,7 +32,7 @@ const ListNV = (props) => {
 
         }
         return <tr key={item.makho}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.mancc}</td>
         <td>{item.tenncc}</td>
         <td>{item.ghichu}</td>
@@ -108,7 +108,7 @@ export default function Kho() {
         {/* table */}
         <h2> Sửa NCC</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -126,6 +126,7 @@ export default function Kho() {
            
              
             </tbody></table>
+            <br></br>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật NCC </button>
         </form>
       </div>)
@@ -135,7 +136,7 @@ export default function Kho() {
         {/* table */}
         <h2> Thêm NCC </h2>
         <form>
-        <table className="table">
+        <table className="tablesuanhanvien">
             <tbody>
               <tr>
               </tr><tr>
@@ -153,6 +154,7 @@ export default function Kho() {
            
              
             </tbody></table>
+            <br></br>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm NCC </button>
         </form>
       </div>
@@ -164,7 +166,7 @@ export default function Kho() {
             {/* table */}
             <h2> Quản lý NCC</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

@@ -68,9 +68,16 @@ function App() {
     NVBHSTT:0,
     NVTSTT:0,
     // STT RENDER
+    Temp:null
   }
   const DisPatch = (state,action) => {
     switch(action.type){
+      case "Temp":{
+        return {
+          ...state,Temp:action.payload
+        }
+      }
+
       case "IsLogIn": {
         return {
           ...state,IsLogIn:!state.IsLogIn

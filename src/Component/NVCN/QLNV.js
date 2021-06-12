@@ -18,7 +18,9 @@ const ListNV = (props) => {
         }
         const Handler_XoaOnClick = (event)=>{
             event.preventDefault();
-            if (item.manv===State.NVInfo.manv) alert("Không thể xóa tài khoản này");
+            if (item.manv===State.NVInfo.manv) alert("Không thể xóa tài khoản của bạn");
+            else if(item.machucvu!==1) alert("Bạn không có quyền xóa tài khoản với chức vụ này");
+            else if(item.machinhanh!==State.NVInfo.machinhanh) alert("Bạn không có quyền xóa tài khoản khác chi nhánh");
             else {
                 axios.delete(`http://localhost:8080/NV/DeleteNV/${item.manv}`).then((res,err)=>{
                 let temp = async () => {
@@ -32,19 +34,20 @@ const ListNV = (props) => {
                 res.data.access === 1 ? temp() : alert(`Xóa thông tin nv thất bại lỗi ${err}: ${res.data.error}`)
             })
             }
-
         }
         return <tr key={item.manv}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.manv}</td>
         <td>{item.tennv}</td>
-        <td>{item.machuvu}</td>
+        <td>{item.machucvu===1?"NVBH":item.machucvu===2?"NV Kho":item.machucvu===3?"NV Chi Nhánh":"NV Tổng"}
+        </td>
         <td>{item.ngaysinh}</td>
         <td>{item.cmnd}</td>
         <td>{item.sdt}</td>
         <td>{item.diachi}</td>
         <td>{item.email}</td>
         <td>{item.machinhanh}</td>
+        
         <td>
           <a href="update_nhanvien.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_SuaOnclick(event)}> Sửa </a>
           <a href="xoa_nv.html" style={{border: 'solid 1px black'}} onClick={(event)=>Handler_XoaOnClick(event)}> Xóa </a> 
@@ -66,7 +69,7 @@ export default function QLNV() {
     const [CNInfo,SetCNInfo] = useState([]);
     const nvRef = useRef();
     const Handler_Onchange = (event)=>{
-        SetNVInfo({...NVInfo,[event.target.name]:event.target.value,anhnv:window.location.origin +`/`+nvRef.current.files[0]?.name})
+        SetNVInfo({...NVInfo,machinhanh:State.NVInfo?.machinhanh,[event.target.name]:event.target.value,anhnv:window.location.origin +`/`+nvRef.current.files[0]?.name})
     }
     const Handler_SuaOnclick = (event)=>{
         event.preventDefault();
@@ -126,7 +129,7 @@ export default function QLNV() {
         {/* table */}
         <h2> Sửa nhân viên</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody><tr>
                 <th>Tên Chi nhánh</th>
                 <td>
@@ -173,10 +176,11 @@ export default function QLNV() {
                 <td><input className="form-control" type="text" name="hesoluong" onChange={(event)=>Handler_Onchange(event)} placeholder={State.AllNVInfo[0].hesoluong} id="diem" onKeyPress={(event)=>Handler.Number(event)} /> </td>
               </tr>
               <tr>
-                <th>Ảnh NV </th>
+                <th>Ảnh nhân viên </th>
                 <td><input type="file" ref={nvRef} name="anhnv" onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
             </tbody></table>
+            <br></br>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Nhân viên </button>
         </form>
       </div>)
@@ -184,13 +188,13 @@ export default function QLNV() {
         case 2: return (
             <div className="container-fluid mt--10">
         {/* table */}
-        <h2> Thêm NV </h2>
+        <h2> Thêm Nhân Viên </h2>
         <form>
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody><tr>
-                <th>Tên Chi nhánh</th>
+                <th>Tên chi nhánh</th>
                 <td>
-                  <select style={{width: '75%'}} name="machinhanh" onChange={(event)=>Handler_Onchange(event)}>
+                  <select style={{width: '75%'}} name="machinhanh" disabled onChange={(event)=>Handler_Onchange(event)}>
                   <option/>
                   <ListCN data={CNInfo}/>
                   </select>
@@ -198,7 +202,7 @@ export default function QLNV() {
               </tr>
               <tr>
               </tr><tr>
-                <th>Mã Nhân viên </th>
+                <th>Mã nhân viên </th>
                 <td><input className="form-control" type="text" name="manv" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
@@ -206,7 +210,7 @@ export default function QLNV() {
                 <td><input className="form-control" type="text" name="tennv" onChange={(event)=>Handler_Onchange(event)} id="diem" onKeyPress={(event)=>Handler.Char(event)}/> </td>
               </tr>
               <tr>
-                <th>Chức Vụ</th>
+                <th>Chức vụ</th>
                 <td>
                   <select style={{width: '75%'}} name="machucvu" onChange={(event)=>Handler_Onchange(event)} >
                   <option></option>
@@ -262,6 +266,7 @@ export default function QLNV() {
                 <td><input type="file" name="anhnv" ref={nvRef} onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
             </tbody></table>
+            <br></br>
           <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Nhân viên </button>
         </form>
       </div>
@@ -273,7 +278,7 @@ export default function QLNV() {
             {/* table */}
             <h2> Quản lý Nhân viên</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>

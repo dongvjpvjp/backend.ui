@@ -64,7 +64,7 @@ const ListCT = props => {
         })
         }
         return <tr key={item?.machitietphieuxuat}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item?.machitietphieuxuat}</td>
         <td>{item?.mahh}</td>
         <td>{item?.soluong}</td>
@@ -113,7 +113,7 @@ const ListNV = (props) => {
 
         }
         return <tr className= 'table' key={item?.maphieuxuat}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item?.maphieuxuat}</td>
         <td>{item?.tenphieuxuat}</td>
         <td>{item?.manv}</td>
@@ -129,6 +129,21 @@ const ListNV = (props) => {
       </tr>
     })
 } 
+
+const ListShowCT = (props)=>{
+  return props.data.map((item,index)=>{
+    return (
+      <tr key={index}>
+      <td>{index}</td>
+      <td>{item?.tenhh}</td>
+      <td>{item?.makho}</td>
+      <td>{item?.soluong}</td>
+      <td>{item?.dongia}</td>
+      <td>{item?.soluong*item?.dongia}</td>
+    </tr>
+    )
+  })
+}
 export default function XH() {
     const [State, SetState] = useContext(Context);
     const [PXInfo,SetPXInfo] = useState({});
@@ -137,12 +152,48 @@ export default function XH() {
     const [CNInfo,SetCNInfo] = useState([]);
     const [HHInfo,SetHHInfo] = useState([]);
     const [MaNVInfo,SetMaNVInfo] = useState([]);
+    const [SPData,SetSPData] = useState([]);
+    const [Temp,SetTemp] = useState([]);
+    const ThemSP_Onclick = (event)=>{
+    event.preventDefault();
+    
+    axios.get(`http://localhost:8080/Data/HH/GetHH/${PXCTInfo?.mahh}`).then(res=>{
+      // masp, soluong, mahoadon, dongia
+      let temp2= {mahh:PXCTInfo?.mahh,makho:PXCTInfo?.makho,soluong:PXCTInfo?.soluong,maphieuxuat:PXInfo.maphieuxuat,dongia:res.data.data[0]?.gianhap,tenhh:res.data.data[0]?.tenhh}
+      SetSPData([...SPData,temp2]); 
+      let temp3 = {...temp2}
+      delete temp3.tenhh;
+      SetTemp([...Temp,Object.values(temp3)]); 
+    });
+  }
+  const ThemPXAUTO = (event)=>{
+    event.preventDefault();
+    
+    let tempdata = JSON.parse(JSON.stringify({...PXInfo,values:Temp}));
+    // console.log(SPData);
+    let temp =   () => {
+      axios.post(`http://localhost:8080/SYS/InsertPhieuXuatAuto`,tempdata).then((res,err)=>{
+          let temp2 = async () => {
+              alert("Thêm thông tin Phieu xuat thành công");
+              let res = await axios.get("http://localhost:8080/SYS/GetAllPhieuXuat")
+          if(res.data.data!==undefined){
+          SetState({type:"AllPX",payload:res.data.data})
+          SetState({type:"QLPXSTT",payload:0});
+          }
+          }
+          res.data.access === 1 ? temp2() : alert(`Thêm thông tin Phieu nhap thất bại lỗi ${err}: ${res.data.error}`)
+      }
+      )
+  }
+  
+  State.QLPXSTT !==2? SetState({type:"QLPXSTT",payload:2}) : temp();
 
+  }
  
 
     const Handler_Onchange = (event)=>{
         
-        State.QLPXSTT!==2 ? SetPXInfo({...PXInfo,[event.target.name]:event.target.value}) : SetPXInfo({...PXInfo,tongtien:0,[event.target.name]:event.target.value})
+        State.QLPXSTT!==2 ? SetPXInfo({...PXInfo,[event.target.name]:event.target.value}) : SetPXInfo({...PXInfo,tongtien:0,[event.target.name]:event.target.value,ngayxuat:Handler.Now_Date()})
     }
     const Handler_SuaOnclick = (event)=>{
         event.preventDefault();
@@ -252,7 +303,7 @@ export default function XH() {
       
             <h2> Thêm Phiếu Xuất Hàng Chi Tiết </h2>
             <form> 
-              <table className="table">
+              <table className="tablesuanhanvien">
                 <tbody>
                   <tr>
                     <th>Mã Phiếu Xuất</th>
@@ -293,6 +344,7 @@ export default function XH() {
                   </tr>   
                    
                 </tbody></table>
+                <br></br>
               <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemCTOnclick(event)}> Thêm CTPX </button>
             </form>
           </div>)
@@ -303,7 +355,7 @@ export default function XH() {
       
             <h2> Sửa Phiếu Xuất Hàng Chi Tiết </h2>
             <form> 
-              <table className="table">
+              <table className="tablesuanhanvien">
                 <tbody>
                  
                   <tr>
@@ -343,6 +395,7 @@ export default function XH() {
                   </tr>   
                    
                 </tbody></table>
+                <br></br>
               <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaCTOnclick(event)}> Cập Nhật CT PX </button>
             </form>
           </div>)
@@ -354,7 +407,7 @@ export default function XH() {
             {/* table */}
             <h2> Quản lý Chi Tiết Phiếu Xuất</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>
@@ -382,7 +435,7 @@ export default function XH() {
       
         <h2> Sửa Phiếu Xuất</h2>
         <form> 
-          <table className="table">
+          <table className="tablesuanhanvien">
             <tbody>
 
               <tr>
@@ -423,6 +476,7 @@ export default function XH() {
               </tr>
               
             </tbody></table>
+            <br></br>
           <button name="sua" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_SuaOnclick(event)}> Cập Nhật Phiếu Xuất </button>
         </form>
       </div>)
@@ -432,7 +486,7 @@ export default function XH() {
         {/* table */}
         <h2> Thêm Phiếu Xuất </h2>
         <form>
-        <table className="table">
+        <table className="tablesuanhanvien">
             <tbody>
 
               <tr>
@@ -463,17 +517,56 @@ export default function XH() {
                 </td>
               </tr>
                      
-              <tr>
+              {/* <tr>
                 <th>Ngày Xuất</th>
                 <td><input className="form-control" type="datetime-local" name="ngayxuat"   onChange={(event)=>Handler_Onchange(event)}/> </td>
-              </tr>
+              </tr> */}
+              <tr>
+                  <th>
+                  <div className="mt-3"><select style={{ width: '45%' }} name="mahh" onChange={(event)=>Handler_CTOnchange(event)}>
+                    <option/>
+                        <ListHH data={HHInfo} />
+                  </select>
+                    <label className=" ml-2 mr-2"> Hàng Hóa </label>
+                    <input  classsName ="ml-2" type="text" name="soluong" id onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/>
+                      <label className=" ml-2 mr-2">Số lượng </label>
+                  </div>
+                  <div className="mt-3"><select style={{ width: '50%' }} onChange={(event)=>Handler_CTOnchange(event)} name="makho">
+                  <option/>
+
+                  <ListKho data={KhoInfo} />
+                  </select>
+                  <label className=" ml-2 mr-2"> Kho </label>
+                  </div>
+                  <button  className="btn btn-primary"  onClick={(event)=>ThemSP_Onclick(event)}>Lựa chọn hàng hóa</button>
+                </th><td>
+                    <div>
+                      <table className="tablechitietsanpham container-fluid mt-2">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Tên hàng hóa</th>
+                            <th>Tên kho</th>
+                            <th> Số lượng</th>
+                            <th> Đơn giá</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <ListShowCT data={SPData}/>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
               <tr>
                 <th> Tổng tiền </th>
-                <td><input className="form-control" type="text" name="tongtien" disabled placeholder={0} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                <td><input className="form-control" type="text" name="tongtien"  placeholder={0} id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
               
             </tbody></table>
-          <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm Phiếu Xuất </button>
+            <br></br>
+          <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>ThemPXAUTO(event)} > Thêm Phiếu Xuất </button>
         </form>
       </div>
         )   
@@ -484,7 +577,7 @@ export default function XH() {
             {/* table */}
             <h2> Quản lý Phiếu Xuất</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>

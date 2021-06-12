@@ -5,7 +5,7 @@ import Context from '../../Context';
 const ListCTNV = (props) => {
     return props.data.map((item,index)=>{
         return <tr key={item.machitiethoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.machitiethoadon}</td>
         <td>{item.tensp}</td>
         <td>{item.masp}</td>
@@ -29,7 +29,7 @@ const ListNV = (props) => {
         }
 
         return <tr key={item.mahoadon}>
-        <th scope="row">{index}</th>
+        <td scope="row">{index}</td>
         <td>{item.mahoadon}</td>
         <td>{item.tenhoadon}</td>
         <td>{item.machinhanh}</td>
@@ -71,7 +71,7 @@ export default function HD() {
             {/* table */}
             <h2> Thông tin chi tiết hóa đơn {State.AllCTHD[0].mahoadon} </h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>
@@ -99,22 +99,22 @@ export default function HD() {
             {/* table */}
             <h2> Thông tin hóa đơn</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="tablehoadon">
                 <thead>
                   <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Mã hóa đơn</th>
-                    <th scope="col">Tên hóa đơn</th>
-                    <th scope="col">Mã chi nhánh</th>
-                    <th scope="col">Mã khách hàng</th>
-                    <th scope="col">Mã sự kiện</th>
-                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Mã HĐ</th>
+                    <th scope="col">Tên HĐ</th>
+                    <th scope="col">Mã Chi Nhánh</th>
+                    <th scope="col">Mã KH</th>
+                    <th scope="col">Mã SK</th>
+                    <th scope="col">Ngày Tạo</th>
                     <th scope="col">SDT</th>
-                    <th scope="col">Địa chỉ</th>
-                    <th scope="col">Ghi chú</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Tổng tiền</th>
-                    <th scope="col">Tác vụ khác</th>
+                    <th scope="col">Địa Chỉ</th>
+                    <th scope="col">Ghi Chú</th>
+                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Tổng Tiền</th>
+                    <th scope="col">Tác Vụ Khác</th>
                   </tr>
                 </thead>
                 <tbody>

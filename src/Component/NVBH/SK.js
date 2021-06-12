@@ -37,7 +37,7 @@ export default function SK() {
       <h2> Thông tin sự kiện</h2>
       <br></br>
       <form action method="get">
-        <table className="table_nhapkho">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">STT</th>

@@ -65,7 +65,19 @@ const ListCT = props => {
         </tr>
     })
 }
-
+const ListShowCT = (props)=>{
+  return props.data.map((item,index)=>{
+    return (
+      <tr key={index}>
+      <td>{index}</td>
+      <td>{item?.tensp}</td>
+      <td>{item?.soluong}</td>
+      <td>{item?.dongia}</td>
+      <td>{item?.soluong*item?.dongia}</td>
+    </tr>
+    )
+  })
+}
 const ListNV = (props) => {
     const [State, SetState] = useContext(Context);
     return props.data.map((item,index)=>{
@@ -128,13 +140,50 @@ export default function HD() {
     const [PTHCTInfo,SetPTHCTInfo] = useState({});
     const [HDInfo,SetHDInfo] = useState([]);
     const [SPInfo,SetSPInfo] = useState([]);
+    const [SPData,SetSPData] = useState([]);
+    const [Temp,SetTemp] = useState([]);
+    const ThemSP_Onclick = (event)=>{
+      event.preventDefault();
+      
+      axios.get(`http://localhost:8080/Data/SP/GetSanPham/${PTHCTInfo?.masp}`).then(res=>{
+        // masp, soluong, mahoadon, dongia
+        let temp2= {maphieutrahang:PTHInfo?.maphieutrahang,masp:PTHCTInfo?.masp,soluong:PTHCTInfo?.soluong,dongia:res.data.data[0].giaban,tensp:res.data.data[0].tensp}
+        SetSPData([...SPData,temp2]); 
+        let temp3 = {...temp2}
+        delete temp3.tensp;
+        SetTemp([...Temp,Object.values(temp3)]);
+        
+      });
+    }
+    const ThemPTHAUTO = (event)=>{
+      event.preventDefault();
+      
+      let tempdata = JSON.parse(JSON.stringify({...PTHInfo,values:Temp}));
+      // console.log(SPData);
+      let temp =   () => {
+        axios.post(`http://localhost:8080/SYS/InsertPhieuTraHangAuto`,tempdata).then((res,err)=>{
+            let temp2 = async () => {
+                alert("Thêm thông tin PTH thành công");
+                let res = await axios.get("http://localhost:8080/SYS/GetAllPhieuTraHang")
+            if(res.data.data!==undefined){
+            SetState({type:"AllPTH",payload:res.data.data})
+            SetState({type:"QLPTHSTT",payload:0});
+            }
+            }
+            res.data.access === 1 ? temp2() : alert(`Thêm thông tin PTH thất bại lỗi ${err}: ${res.data.error}`)
+        }
+        )
+    }
+    
+    State.QLPTHSTT !==2? SetState({type:"QLPTHSTT",payload:2}) : temp();
 
+    }
 
- 
+  
 
     const Handler_Onchange = (event)=>{
         
-        State.QLPTHSTT!==2 ? SetPTHInfo({...PTHInfo,[event.target.name]:event.target.value}) : SetPTHInfo({...PTHInfo,tongtien:0,[event.target.name]:event.target.value})
+        State.QLPTHSTT!==2 ? SetPTHInfo({...PTHInfo,[event.target.name]:event.target.value}) : SetPTHInfo({...PTHInfo,tongtien:0,[event.target.name]:event.target.value,ngaytra:Handler.Now_Date()})
     }
     const Handler_SuaOnclick = (event)=>{
         event.preventDefault();
@@ -391,11 +440,10 @@ export default function HD() {
         case 2: return (
             <div className="container-fluid mt--10">
         {/* table */}
-        <h2> Thêm PTH </h2>
+        <h2> Thêm Phiếu Trả Hàng </h2>
         <form>
-        <table className="table">
+        <table className="tablephieutrahang">
             <tbody>
-
             <tr>
                 <th>Mã PTH </th>
                 <td><input className="form-control" type="text" name="maphieutrahang"  id="diem" onChange={(event)=>Handler_Onchange(event)} onKeyPress={(event)=>Handler.Char(event)}/> </td>
@@ -409,18 +457,49 @@ export default function HD() {
                       </select>
                     </td>
                   </tr> 
-              <tr>
+              {/* <tr>
                 <th>Ngày Trả</th>
                 <td><input className="form-control" type="datetime-local" name="ngaytra"  onChange={(event)=>Handler_Onchange(event)}/> </td>
-              </tr>
+              </tr> */}
               <tr>
-                <th> Tổng tiền </th>
-                <td><input className="form-control" type="text" name="tongtien" disabled  id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
+                  <th>
+                  <div className="mt-3">
+                    <select style={{width: '50%'}} name="masp" placeholder={State.AllCTPTH[0]?.masp} onChange={(event)=>Handler_CTOnchange(event)}>
+                      <option/>
+                      <ListSP data={SPInfo} />
+                      </select>
+                      <label className=" ml-2 mr-2">Sản phẩm </label>
+                      <input  classsName ="ml-2" type="text" name="soluong" id onChange={(event)=>Handler_CTOnchange(event)} onKeyPress={(event)=>Handler.Number(event)}/>
+                      <label className=" ml-2 mr-2">Số lượng </label>
+                    </div>
+                    <button  className="btn btn-primary"  onClick={(event)=>ThemSP_Onclick(event)}>Lựa chọn sản phẩm</button>
+                  </th><td>
+                    <div>
+                      <table className="tablechitietsanpham container-fluid mt-2">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th> Số lượng</th>
+                            <th> Đơn giá</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <ListShowCT data={SPData}/>
+
+                      
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              <tr>
+                <th> Tổng Tiền </th>
+                <td><input className="form-control" type="text" name="tongtien" id="diem" onChange={(event)=>Handler_Onchange(event)} /></td>
               </tr>
-              
-              
             </tbody></table>
-          <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>Handler_ThemOnClick(event)} > Thêm PTH </button>
+          <button name="them" value="Xacnhan" style={{width: '20%'}} onClick={(event)=>ThemPTHAUTO(event)} > Thêm PTH </button>
         </form>
       </div>
         )   
@@ -431,7 +510,7 @@ export default function HD() {
             {/* table */}
             <h2> Quản lý Phiếu Trả Hàng</h2>
             <form action method="get">
-              <table className="table_nhapkho">
+              <table className="table">
                 <thead>
                   <tr> 
                     <th scope="col">STT</th>
@@ -447,7 +526,7 @@ export default function HD() {
                 </tbody>
               </table>
             </form>
-            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black', padding:'5px'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm PTH </a> </h2>
+            <h2 className="mt-3"><a href="add_nhanvien.html" style={{border: 'solid 1px black', padding:'5px'}} onClick={(event)=>Handler_ThemOnClick(event)}> Thêm  Phiếu Trả Hàng </a> </h2>
           </div>
         )
     }
