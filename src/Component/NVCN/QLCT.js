@@ -93,7 +93,7 @@ const Handler_SuaOnclick = (event)=>{
               let res = await axios.get("http://localhost:8080/SYS/GetAllPhieuChiTien");
                if(res.data.data!==undefined) {
                 SetState({ type: "AllPCT", payload: res.data.data });
-                SetState({ type: "QLPCTSTT", payload: 0 })
+                SetState({ type: "QLPCTSTT", payload: 0})
                }
           }
           res.data.access === 1 ? temp2() : alert(`Thêm thông tin nv thất bại lỗi ${err}: ${res.data.error}`)

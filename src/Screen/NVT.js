@@ -151,6 +151,12 @@ export default function NVT() {
                       <span className="nav-link-text">Phiếu Trả Hàng</span>
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="./QL_chitieu/qlthuchi.html" onClick={(event)=>Handler_OnClick(event,8)}>
+                      <i className="ni ni-single-02 text-yellow" />
+                      <span className="nav-link-text">Chi / Nhận Tiền</span>
+                    </a>
+                  </li>
                </ul>
               </div></div></div></nav>
         {/* Main content */}

@@ -8,29 +8,25 @@ const ListPN = (props) => {
     return props.data.map((item, index) => {
         return <tr key={index}>
             <td scope="row">{index}</td>
-            <td>{item?.mahh}</td>
-            <td>{item?.mancc}</td>
-            <td>{item?.soluong}</td>
-            <td>{item?.dongia}</td>
+            <td>{item?.maphieunhantien}</td>
+            <td>{item?.machinhanh}</td>
             <td>{item?.manv}</td>
-            <td>{item?.makho}</td>
-            <td>{item?.ngaynhap}</td>
-            <td>{item?.soluong*item?.dongia}</td>
+            <td>{item?.sotiennhan}</td>
+            <td>{item?.noidung}</td>
+            <td>{item?.ngaynhan}</td>
         </tr>
     })
 }
 const ListPX = (props) => {
     return props.data.map((item, index) => {
         return <tr key={index}>
-            <td scope="row">{index}</td>
-            <td>{item?.mahh}</td>
-            <td>{item?.makho}</td>
-            <td>{item?.soluong}</td>
-            <td>{item?.dongia}</td>
-            <td>{item?.manv}</td>
+             <td scope="row">{index}</td>
+            <td>{item?.maphieuchitien}</td>
             <td>{item?.machinhanh}</td>
-            <td>{item?.ngayxuat}</td>
-            <td>{item?.soluong*item?.dongia}</td>
+            <td>{item?.manv}</td>
+            <td>{item?.sotienchi}</td>
+            <td>{item?.noidung}</td>
+            <td>{item?.ngaychi}</td>
         </tr>
     })
 }
@@ -47,14 +43,14 @@ export default function HH() {
         SetTimeInfo({});
         event.preventDefault();
         if(event.target.name==="PN"){
-            axios.post(`http://localhost:8080/SYS/ThongKePN`,TimeInfo).then((res,err)=>{
+            axios.post(`http://localhost:8080/SYS/ThongKePNT`,TimeInfo).then((res,err)=>{
                 if (err) console.log(err);
                 console.log(TimeInfo);
                 SetPNDataInfo(res.data.data)
             })
         }
         else if(event.target.name==="PX"){
-            axios.post(`http://localhost:8080/SYS/ThongKePX`,TimeInfo).then((res,err)=>{
+            axios.post(`http://localhost:8080/SYS/ThongKePCT`,TimeInfo).then((res,err)=>{
                 if (err) console.log(err);
                 SetPXDataInfo(res.data.data)
             })
@@ -65,10 +61,10 @@ export default function HH() {
     return (
         <div className="container-fluid mt--10">
             {/* table */}
-            <h1> Thống kê lượng hàng tồn kho</h1>
+            <h1> Thống kê tiền của các chi nhánh</h1>
             {/* thống kê hàng hóa đã nhập */}
             <div>
-                <h2> Quản Lý Hàng Hóa Đã Nhập</h2>
+                <h2> Quản Lý Phiếu Nhận Tiền Đã Nhập</h2>
                 <form className="row">
                     <div className="column">
                         <label >Từ ngày</label>
@@ -89,14 +85,13 @@ export default function HH() {
                         <thead>
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Hàng Hóa</th>
-                                <th scope="col">Nhà cung cấp</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Đơn Giá</th>
-                                <th scope="col">NhânViên</th>
-                                <th scope="col">Kho </th>
-                                <th scope="col">Ngày nhập </th>
-                                <th scope="col">Tổng Tiền</th>
+                                <th scope="col">Mã Phiếu</th>
+                                <th scope="col">Chi Nhánh</th>
+                                <th scope="col">Nhân Viên</th>
+                                <th scope="col">Số Tiền Nhận</th>
+                                <th scope="col">Nội Dung</th>
+                                <th scope="col">Ngày Chi </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -109,7 +104,7 @@ export default function HH() {
             {/* Thống kê hàng hóa đã xuất */}
             <div>
 
-                <h2> Quản Lý Hàng Hóa Đã Xuất</h2>
+                <h2> Quản Lý Phiếu Chi Tiền Đã Xuất</h2>
                 <form action method="get" className="row">
                     <div className="column">
                         <label >Từ ngày</label>
@@ -129,15 +124,13 @@ export default function HH() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Hàng Hóa</th>
-                                <th scope="col">Kho</th>
-                                <th scope="col">Số Lượng</th>
-                                <th scope="col">Đơn Giá</th>
-                                <th scope="col">Nhân Viên</th>
+                            <th scope="col">STT</th>
+                                <th scope="col">Mã Phiếu</th>
                                 <th scope="col">Chi Nhánh</th>
-                                <th scope="col">Ngày xuất </th>
-                                <th scope="col">Tổng tiền</th>
+                                <th scope="col">Nhân Viên</th>
+                                <th scope="col">Số Tiền Chi</th>
+                                <th scope="col">Nội Dung</th>
+                                <th scope="col">Ngày Chi </th>
                             </tr>
                         </thead>
                         <tbody>

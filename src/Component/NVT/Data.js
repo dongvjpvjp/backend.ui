@@ -10,6 +10,7 @@ import QLNV from './QLNV'
 import PTH from './PTH'
 import Kho from './Kho'
 import DT from './DT'
+import TK from './TK'
 export default function Data() {
     const [State, SetState] = useContext(Context);
 
@@ -21,6 +22,7 @@ export default function Data() {
      case 5: return <SP/>
      case 6: return <HD/>
      case 7: return <PTH/>
+     case 8: return <TK/>
       default: return <DT/>
   }
 }
